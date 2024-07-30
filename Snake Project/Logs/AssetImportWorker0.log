@@ -197,3 +197,11 @@ Received Import Request.
 Number of updated assets reloaded before import = 0
 Start importing Assets using Guid(00000000000000001000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '79842766b460edbeab6a34051e857a80') in 0.000979 seconds 
 Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 1325.884641 seconds.
+  path: Assets/Scenes/Main Game.unity
+  artifactKey: Guid(36a8556e02eea45218cdcfab28eac2f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Scenes/Main Game.unity using Guid(36a8556e02eea45218cdcfab28eac2f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca6e71e9f4b3f518df548af11a3b6080') in 0.000813 seconds 
+Number of asset objects unloaded after import = 0
