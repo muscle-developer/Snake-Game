@@ -189,3 +189,27 @@ Received Import Request.
 Number of updated assets reloaded before import = 0
 Start importing Assets/Scripts/SnakeHead.cs using Guid(ecd55ed125c81424890ba926cd995969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0042f7848c5bc61eeb0201edfd563331') in 0.259143 seconds 
 Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 2841.468976 seconds.
+  path: Assets/Prefabs
+  artifactKey: Guid(cffc41a91e455431f833265983182ab6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Prefabs using Guid(cffc41a91e455431f833265983182ab6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64f02687317cbc12252b272bd0722430') in 0.003439 seconds 
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 7.429088 seconds.
+  path: Assets/Prefabs/UI
+  artifactKey: Guid(29ef1793d5aeb4ea59e4394be1d4e503) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Prefabs/UI using Guid(29ef1793d5aeb4ea59e4394be1d4e503) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7aa8bfee199df23983b361523579e74') in 0.000988 seconds 
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 2.818393 seconds.
+  path: Assets/Prefabs/UI/UI.prefab
+  artifactKey: Guid(05d3cf86160f943fb8c8d0e295251c90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Prefabs/UI/UI.prefab using Guid(05d3cf86160f943fb8c8d0e295251c90) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7eb5d172dcd7661557543b0b9181e09') in 0.124138 seconds 
+Number of asset objects unloaded after import = 7
