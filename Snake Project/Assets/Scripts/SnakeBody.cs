@@ -4,56 +4,29 @@ using UnityEngine;
 
 public class SnakeBody : MonoBehaviour
 {
-    public class Body
-    {
-        public Vector3 postion;
-        public Quaternion rotation;
-
-        public Body(Vector3 pos, Quaternion rot)
-        {
-            postion = pos;
-            rotation = rot;
-        }
-    }
-
-    public List<Body> bodyList = new List<Body>();
-    public float bodySpeed = 5;
-    public int gap = 10;
-    
     void FixedUpdate()
     {
-        UpdateBodyList();
         // Move body parts
-        // int index = 0;
-        // var headPos = SnakeManager.Instance.HeadPositions;
+        int index = 0;
+        var snakeManager = SnakeManager.Instance;
+        foreach (var body in snakeManager.BodyParts) 
+        {
+            Vector3 point = snakeManager.PositionsHistory[Mathf.Clamp(index * snakeManager.gap, 0, snakeManager.PositionsHistory.Count - 1)];
+            Vector3 moveDirection = point - body.transform.position;
 
-        // if(headPos.Count < 2)
-        //     return;
+            body.transform.position += moveDirection * snakeManager.bodySpeed * Time.deltaTime;
 
-        // for (int index = 0; index < SnakeManager.Instance.BodyParts.Count; index++)
-        // {
-        //     var body = SnakeManager.Instance.BodyParts[index];
-        //     int targetIndex = Mathf.Clamp(index * gap, 0, headPos.Count - 1);
-        //     Vector3 point = headPos[targetIndex];
+            if (moveDirection != Vector3.zero)
+            {
+                // 부드러운 회전을 위해 Slerp 사용
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                body.transform.rotation = Quaternion.Slerp(body.transform.rotation, targetRotation, snakeManager.bodySpeed * Time.deltaTime);
 
-        //     Vector3 moveDirection = point - body.transform.position;
-        //     if (moveDirection.sqrMagnitude > 0.001f) // 너무 가까울 때는 이동하지 않음
-        //     {
-        //         body.transform.position += moveDirection.normalized * bodySpeed * Time.deltaTime;
-        //         body.transform.rotation = Quaternion.LookRotation(moveDirection);
-        //     }
-        // }
-    }
+                // body.transform.LookAt(point);
+            }
 
-    public void UpdateBodyList()
-    {
-        bodyList.Add(new Body(transform.position, transform.rotation));
-    }
-
-    public void ClearBodyList()
-    {
-        bodyList.Clear();
-        bodyList.Add(new Body(transform.position, transform.rotation));
+            index++;
+        }
     }
 
     private void OnTriggerEnter(Collider other)

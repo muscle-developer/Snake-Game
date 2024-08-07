@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5329dff69353474a90c8cde4d21826f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snakeHeadPrefab: {fileID: 0}
+  snakeHeadPrefab: {fileID: 8022336123161859619, guid: 619c131ff68cb48adbc60867e42d936a, type: 3}
 --- !u!1001 &1501822739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +388,30 @@ PrefabInstance:
     - target: {fileID: 991333396557680312, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 198
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}

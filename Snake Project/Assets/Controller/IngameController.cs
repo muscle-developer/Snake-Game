@@ -12,11 +12,17 @@ public class IngameController : MonoBehaviour
     void Start()
     {
         InstantiateSnakeHead();
+        SnakeManager.Instance.AddBodyPart();
+        SnakeManager.Instance.AddBodyPart();
+        SnakeManager.Instance.AddBodyPart();
+        SnakeManager.Instance.AddBodyPart();
+        SnakeManager.Instance.AddBodyPart();
     }
 
     private void InstantiateSnakeHead()
     {
         GameObject snakeHead = Instantiate(snakeHeadPrefab, transform.position, transform.rotation, transform);
-        TestManager.Instance.snakeBody.Add(snakeHead);
+        SnakeManager.Instance.BodyParts.Add(snakeHead); // SnakeHead를 BodyParts에 추가
+        SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
     }
 }

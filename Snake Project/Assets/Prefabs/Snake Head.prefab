@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8220601885675034771}
   - component: {fileID: 2295008046507164118}
   - component: {fileID: 8531665897772133560}
-  - component: {fileID: 3480202442039430728}
   m_Layer: 0
   m_Name: Snake Head
   m_TagString: Untagged
@@ -130,23 +129,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rotationSpeed: 400
---- !u!114 &3480202442039430728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8022336123161859619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f76cfe2fc2ca475eaaeb25fb3b5b80c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  snkaeSpeed: 280
-  turnSpeed: 180
-  distanceBetween: 0.2
-  bodyParts:
-  - {fileID: 2013645530069422924, guid: 1aaadea5aad1d41abb3a151c49a178d8, type: 3}
-  - {fileID: 2013645530069422924, guid: 1aaadea5aad1d41abb3a151c49a178d8, type: 3}
-  - {fileID: 2013645530069422924, guid: 1aaadea5aad1d41abb3a151c49a178d8, type: 3}
-  snakeBody: []

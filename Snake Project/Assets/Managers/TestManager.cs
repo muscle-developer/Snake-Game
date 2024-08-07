@@ -4,119 +4,92 @@ using OpenCover.Framework.Model;
 using UnityEditor;
 using UnityEngine;
 
+// 스네이크 관리를 위한 매니저 스크립트
+// 전역 시스템 관리: 게임의 전역적인 상태나 시스템을 관리합니다.
+// 싱글톤 패턴: 종종 싱글톤 패턴을 사용하여 게임 내에서 하나의 인스턴스만 존재하도록 합니다.
+// 다양한 기능: 게임 상태 관리, 리소스 로딩, 오디오 관리, 데이터 저장 및 로드, 레벨 전환, UI 관리 등 다양한 기능을 담당할 수 있습니다.
+// 역할: 게임의 전역적인 상태와 시스템을 관리. 주로 스네이크의 몸체를 추가하고, 몸체의 리스트를 관리하는 역할을 합니다.
 public class TestManager : MonoBehaviour
 {
     // 전역에서 사용할 수 있도록 싱글톤화
     public static TestManager Instance;
     public float snkaeSpeed = 280.0f;
-    public float turnSpeed = 180.0f;
+    public float rotationSpeed = 180.0f;
     public float distanceBetween = 0.2f;
     public List<GameObject> bodyParts = new List<GameObject>();
     public List<GameObject> snakeBody = new List<GameObject>();
     private float countUp = 0f;
 
-    void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-            Destroy(this.gameObject);
-    }
-
-    void Start()
-    {   
-        AddBodyPart();
-    }
-
-    void FixedUpdate()
-    {
-        HandleBodyAddition();
-    }
-
-    // private void AddBodyPart()
+    // void Awake()
     // {
-    //     if(snakeBody.Count == 0)
+    //     if(Instance == null)
     //     {
-    //         GameObject temp1 = Instantiate(bodyParts[0], transform.position, transform.rotation, transform);
-    //         if(!temp1.GetComponent<SnakeBody>())
-    //             temp1.GetComponent<SnakeBody>();
-    //         if(!temp1.GetComponent<Rigidbody>())
-    //         {
-    //             temp1.AddComponent<Rigidbody>();
-    //             temp1.GetComponent<Rigidbody>().useGravity = false;
-    //         }
+    //         Instance = this;
+    //         DontDestroyOnLoad(gameObject);
     //     }
+    //     else
+    //         Destroy(this.gameObject);
+    // }
 
-    //     SnakeBody body = snakeBody[snakeBody.Count - 1].GetComponent<SnakeBody>();
-    //     if(countUp == 0)
+    // public void AddBodyPart()
+    // {
+    //     if(bodyParts.Count > 0)
     //     {
-    //         body.ClearBodyList();
-    //     }
-    //     countUp += Time.deltaTime;
-    //     if(countUp >= distanceBetween)
-    //     {
-    //         GameObject temp = Instantiate(bodyParts[0], body.bodyList[0].postion, body.bodyList[0].rotation, transform);
-    //         if(!temp.GetComponent<SnakeBody>())
-    //             temp.GetComponent<SnakeBody>();
-    //         if(!temp.GetComponent<Rigidbody>())
-    //         {
-    //             temp.AddComponent<Rigidbody>();
-    //             temp.GetComponent<Rigidbody>().useGravity = false;
-    //         }
-
-    //         snakeBody.Add(temp);
+    //         GameObject newPart = Instantiate(bodyParts[0], transform.position, transform.rotation, transform);
+    //         SetupBodyPart(newPart);
+    //         snakeBody.Add(newPart);
     //         bodyParts.RemoveAt(0);
-    //         temp.GetComponent<SnakeBody>().ClearBodyList();
-    //         countUp = 0;
+
+    //         int index = snakeBody.IndexOf(newPart);
+    //         if (index > 0)
+    //         {
+    //             newPart.GetComponent<SnakeBody>().Target = snakeBody[index - 1].transform;
+    //         }
     //     }
     // }
 
-    private void AddBodyPart()
-    {
-        GameObject newPart = Instantiate(bodyParts[0], transform.position, transform.rotation, transform);
-        SetupBodyPart(newPart);
-        snakeBody.Add(newPart);
-        bodyParts.RemoveAt(0);
-    }
+    // public void HandleBodyAddition()
+    // {
+    //     if (snakeBody.Count > 0)
+    //     {
+    //         SnakeBody lastBodyPart = snakeBody[snakeBody.Count - 1].GetComponent<SnakeBody>();
+    //         if (countUp == 0)
+    //         {
+    //             lastBodyPart.ClearBodyList();
+    //         }
+    //         countUp += Time.deltaTime;
+    //         if (countUp >= distanceBetween && bodyParts.Count > 0)
+    //         {
+    //             Vector3 newPos = lastBodyPart.bodyList[0].position;
+    //             Quaternion newRot = lastBodyPart.bodyList[0].rotation;
+    //             GameObject newPart = Instantiate(bodyParts[0], newPos, newRot, transform);
+    //             SetupBodyPart(newPart);
 
-    private void HandleBodyAddition()
-    {
-        if (snakeBody.Count > 0)
-        {
-            SnakeBody lastBodyPart = snakeBody[snakeBody.Count - 1].GetComponent<SnakeBody>();
-            if (countUp == 0)
-            {
-                lastBodyPart.ClearBodyList();
-            }
-            countUp += Time.deltaTime;
-            if (countUp >= distanceBetween)
-            {
-                Vector3 newPos = lastBodyPart.bodyList[0].postion;
-                Quaternion newRot = lastBodyPart.bodyList[0].rotation;
-                GameObject newPart = Instantiate(bodyParts[0], newPos, newRot, transform);
-                SetupBodyPart(newPart);
+    //             snakeBody.Add(newPart);
+    //             bodyParts.RemoveAt(0);
+    //             newPart.GetComponent<SnakeBody>().ClearBodyList();
 
-                snakeBody.Add(newPart);
-                bodyParts.RemoveAt(0);
-                newPart.GetComponent<SnakeBody>().ClearBodyList();
-                countUp = 0;
-            }
-        }
-    }
+    //             int index = snakeBody.IndexOf(newPart);
+    //             if (index > 0)
+    //             {
+    //                 newPart.GetComponent<SnakeBody>().Target = snakeBody[index - 1].transform;
+    //             }
 
-    private void SetupBodyPart(GameObject bodyPart)
-    {
-        if (!bodyPart.GetComponent<SnakeBody>())
-        {
-            bodyPart.AddComponent<SnakeBody>();
-        }
-        if (!bodyPart.GetComponent<Rigidbody>())
-        {
-            Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
-            rb.useGravity = false;
-        }
-    }
+    //             countUp = 0;
+    //         }
+    //     }
+    // }
+
+    // private void SetupBodyPart(GameObject bodyPart)
+    // {
+    //     if (!bodyPart.GetComponent<SnakeBody>())
+    //     {
+    //         bodyPart.AddComponent<SnakeBody>();
+    //     }
+    //     if (!bodyPart.GetComponent<Rigidbody>())
+    //     {
+    //         Rigidbody rb = bodyPart.AddComponent<Rigidbody>();
+    //         rb.useGravity = false;
+    //     }
+    // }
 }
