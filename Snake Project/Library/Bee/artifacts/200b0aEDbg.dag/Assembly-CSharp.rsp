@@ -351,6 +351,7 @@
 "Assets/Controller/IngameController.cs"
 "Assets/Controller/OutgameController.cs"
 "Assets/Managers/GameManager.cs"
+"Assets/Managers/ManagerLoader.cs"
 "Assets/Managers/SnakeManager.cs"
 "Assets/Managers/SoundManager.cs"
 "Assets/Managers/TestManager.cs"
