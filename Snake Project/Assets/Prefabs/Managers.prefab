@@ -90,7 +90,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5998159024422369670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f76cfe2fc2ca475eaaeb25fb3b5b80c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7197104cd8b63486eb6b1aa88e3f3259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   snkaeSpeed: 280
