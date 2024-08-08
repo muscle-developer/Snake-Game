@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5329dff69353474a90c8cde4d21826f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystick: {fileID: 1953706129}
   snakeHeadPrefab: {fileID: 8022336123161859619, guid: 619c131ff68cb48adbc60867e42d936a, type: 3}
 --- !u!1001 &1501822739
 PrefabInstance:
@@ -544,3 +545,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1953706129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5836891654190620033, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+  m_PrefabInstance: {fileID: 1501822739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42844a4fccbd54746b90cade4ff70f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
