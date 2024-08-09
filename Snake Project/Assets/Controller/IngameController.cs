@@ -7,6 +7,7 @@ using UnityEngine;
 // 객체 중심: 주로 개별 게임 객체에 붙어서 동작하며, 해당 객체의 움직임, 애니메이션, 상호작용 등을 관리합니다.
 public class IngameController : MonoBehaviour
 {
+    public VariableJoystick joystick;
     public GameObject snakeHeadPrefab; // SnakeHead 프리팹
 
     void Start()
@@ -22,6 +23,11 @@ public class IngameController : MonoBehaviour
     private void InstantiateSnakeHead()
     {
         GameObject snakeHead = Instantiate(snakeHeadPrefab, transform.position, transform.rotation, transform);
+        SnakeHead snakeHeadObj = snakeHead.GetComponent<SnakeHead>();  
+
+        if(snakeHeadObj != null)
+            snakeHeadObj.joystick = joystick;
+
         SnakeManager.Instance.BodyParts.Add(snakeHead); // SnakeHead를 BodyParts에 추가
         SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
     }

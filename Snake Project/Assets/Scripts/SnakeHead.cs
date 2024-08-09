@@ -6,11 +6,21 @@ using UnityEngine;
 
 public class SnakeHead : MonoBehaviour
 {
+    public VariableJoystick joystick; // 조이스틱을 사용하기 위한 변수 
     private Vector3 direction = Vector3.forward; // 현재 이동 방향
     private Vector3 targetDirection = Vector3.forward; // 목표 이동 방향
 
     void Update()
     {
+        // 조이스틱의 입력 방향을 가져오기
+        Vector2 joystickDirection = joystick.Direction;
+
+        // 조이스틱 입력이 있는 경우에 목표 방향을 업데이트
+        if(joystickDirection != Vector2.zero)
+            targetDirection = new Vector3(joystickDirection.x, 0, joystickDirection.y).normalized;
+        else 
+            targetDirection = direction; // 조이스틱 입력이 없을 때는 현재 목표 방향 유지
+
         // 입력에 따라 목표 방향을 업데이트
         Vector3 inputDirection = Vector3.zero;
         if (Input.GetKey(KeyCode.W)) inputDirection += Vector3.forward;
