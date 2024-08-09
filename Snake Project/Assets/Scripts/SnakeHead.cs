@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Palmmedia.ReportGenerator.Core.Parser.Analysis;
 using UnityEngine;
 
 public class SnakeHead : MonoBehaviour
@@ -21,7 +17,7 @@ public class SnakeHead : MonoBehaviour
         else 
             targetDirection = direction; // 조이스틱 입력이 없을 때는 현재 목표 방향 유지
 
-        // 입력에 따라 목표 방향을 업데이트
+        // 입력에 따라 목표 방향을 업데이트 (조이스틱 사용 x 키보드 사용)
         Vector3 inputDirection = Vector3.zero;
         if (Input.GetKey(KeyCode.W)) inputDirection += Vector3.forward;
         if (Input.GetKey(KeyCode.S)) inputDirection += Vector3.back;
