@@ -198,6 +198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Variable Joystick
       objectReference: {fileID: 0}
+    - target: {fileID: 3881087803549984437, guid: ec536a7718376554185e4a856d5ae230, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec536a7718376554185e4a856d5ae230, type: 3}
 --- !u!224 &5836891654190620034 stripped
@@ -226,7 +230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5723883678241366956, guid: 6e059da267ba844e39f1285d2173528d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 198
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723883678241366956, guid: 6e059da267ba844e39f1285d2173528d, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -323,10 +327,6 @@ PrefabInstance:
     - target: {fileID: 5723883678270384228, guid: 6e059da267ba844e39f1285d2173528d, type: 3}
       propertyPath: m_Name
       value: Joystick Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5723883678270384228, guid: 6e059da267ba844e39f1285d2173528d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e059da267ba844e39f1285d2173528d, type: 3}

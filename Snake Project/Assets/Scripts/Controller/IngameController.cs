@@ -13,11 +13,11 @@ public class IngameController : MonoBehaviour
     void Start()
     {
         InstantiateSnakeHead();
-        SnakeManager.Instance.AddBodyPart();
-        SnakeManager.Instance.AddBodyPart();
-        SnakeManager.Instance.AddBodyPart();
-        SnakeManager.Instance.AddBodyPart();
-        SnakeManager.Instance.AddBodyPart();
+        // SnakeManager.Instance.AddBodyPart();
+        // SnakeManager.Instance.AddBodyPart();
+        // SnakeManager.Instance.AddBodyPart();
+        // SnakeManager.Instance.AddBodyPart();
+        // SnakeManager.Instance.AddBodyPart();
     }
 
     private void InstantiateSnakeHead()

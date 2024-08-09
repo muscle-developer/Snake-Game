@@ -61,4 +61,17 @@ public class SnakeHead : MonoBehaviour
             SnakeManager.Instance.AddBodyPart();
         }
     }
+
+    public bool isAllowMoveInput = true;
+    public void MoveInput(Vector3 newMoveDirection)
+	{
+		if(isAllowMoveInput)
+			direction = newMoveDirection;
+	}
+
+    public bool isMoveInputExist;
+    public void IsMoveInputExist(bool newIsMoveInputExistState)
+	{
+		isMoveInputExist = newIsMoveInputExistState;
+	}
 }
