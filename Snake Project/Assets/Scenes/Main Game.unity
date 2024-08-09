@@ -294,7 +294,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 1953706129}
+  uiJoystick: {fileID: 1158159358}
   snakeHeadPrefab: {fileID: 8022336123161859619, guid: 619c131ff68cb48adbc60867e42d936a, type: 3}
+--- !u!114 &1158159358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6800509168502000908, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+  m_PrefabInstance: {fileID: 1501822739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2032728436a8641298d3e982d46adae0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1501822739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -400,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 198
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
       propertyPath: m_SizeDelta.y
@@ -408,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 99
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3148388855211824668, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
       propertyPath: m_AnchoredPosition.y

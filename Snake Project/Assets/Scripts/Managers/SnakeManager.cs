@@ -10,7 +10,7 @@ public class SnakeManager : MonoBehaviour
     public static SnakeManager Instance;
     // Settings
     public float snkaeSpeed = 5.0f;
-    public float rotationSpeed = 180.0f;
+    public float rotationSpeed = 300.0f;
     public float bodySpeed = 5.0f;
     public int gap = 10;
 

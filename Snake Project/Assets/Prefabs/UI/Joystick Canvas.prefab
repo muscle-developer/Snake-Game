@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 5723883678241366952}
   - component: {fileID: 5723883678241366953}
   - component: {fileID: 7791783441275928028}
+  - component: {fileID: 953577513309999271}
   m_Layer: 5
   m_Name: UI_Virtual_Joystick_Move
   m_TagString: Untagged
@@ -156,6 +157,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &953577513309999271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5723883678241366957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99549c117bc6845ba9430f3332e717fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  containerRect: {fileID: 5723883678241366956}
+  handleRect: {fileID: 5723883678646117266}
+  containerRectImage: {fileID: 5723883678241366953}
+  handleRectImage: {fileID: 5723883678646117276}
+  joystickRange: 100
+  magnitudeMultiplier: 1
+  invertXOutputValue: 0
+  invertYOutputValue: 0
+  joystickOutputEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8482094970829786153}
+        m_TargetAssemblyTypeName: UICanvasControllerInput, Assembly-CSharp
+        m_MethodName: VirtualMoveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5723883678270384228
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2032728436a8641298d3e982d46adae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uICanvasControllerInput: {fileID: 8482094970829786153}
+  moveJoyStick: {fileID: 953577513309999271}
 --- !u!1 &5723883678646117267
 GameObject:
   m_ObjectHideFlags: 0

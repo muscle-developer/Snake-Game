@@ -62,16 +62,24 @@ public class SnakeHead : MonoBehaviour
         }
     }
 
-    public bool isAllowMoveInput = true;
-    public void MoveInput(Vector3 newMoveDirection)
-	{
-		if(isAllowMoveInput)
-			direction = newMoveDirection;
-	}
+    public bool isAllowMoveInput = true; // 이동 입력을 허용할지 여부를 나타내는 변수
 
-    public bool isMoveInputExist;
+    // 새로운 이동 방향을 설정하는 메서드입니다.
+    public void MoveInput(Vector3 newMoveDirection)
+    {
+        // 이동 입력이 허용된 경우에만 동작합니다.
+        if (isAllowMoveInput)
+        {
+            // newMoveDirection 벡터를 정규화하여 targetDirection에 할당합니다.
+            direction = newMoveDirection.normalized;
+        }
+    }
+
+    public bool isMoveInputExist; // 입력이 존재하는지를 나타내는 변수
+
+    // 입력 존재 여부를 설정하는 메서드입니다.
     public void IsMoveInputExist(bool newIsMoveInputExistState)
-	{
-		isMoveInputExist = newIsMoveInputExistState;
-	}
+    {
+        isMoveInputExist = newIsMoveInputExistState;
+    }
 }

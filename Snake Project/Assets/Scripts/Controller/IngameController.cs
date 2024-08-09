@@ -8,6 +8,7 @@ using UnityEngine;
 public class IngameController : MonoBehaviour
 {
     public VariableJoystick joystick;
+    public UIJoystick uiJoystick;
     public GameObject snakeHeadPrefab; // SnakeHead 프리팹
 
     void Start()
@@ -26,7 +27,10 @@ public class IngameController : MonoBehaviour
         SnakeHead snakeHeadObj = snakeHead.GetComponent<SnakeHead>();  
 
         if(snakeHeadObj != null)
+        {
             snakeHeadObj.joystick = joystick;
+            uiJoystick.Initialize(snakeHeadObj);
+        }
 
         SnakeManager.Instance.BodyParts.Add(snakeHead); // SnakeHead를 BodyParts에 추가
         SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
