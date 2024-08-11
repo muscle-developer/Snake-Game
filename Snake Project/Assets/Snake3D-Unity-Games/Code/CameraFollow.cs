@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -11,11 +12,17 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        if (target == null)
-        {
-            target = FindObjectOfType<SnakeHead>().transform;
-        }
+        StartCoroutine(FindTargetCoroutine());
+    }
 
+    private IEnumerator FindTargetCoroutine()
+    {
+        while (target == null)
+        {
+            target = FindObjectOfType<SnakeHead>()?.transform;
+            yield return null;
+        }
+        
         if (!isCustomOffset)
         {
             offset = transform.position - target.position;
@@ -29,9 +36,11 @@ public class CameraFollow : MonoBehaviour
 
     public void SmoothFollow()
     {
+        if(target == null)
+            return;
+
         Vector3 targetPos = target.position + offset;
-        Vector3 smoothFollow = Vector3.Lerp(transform.position,
-        targetPos, smoothSpeed);
+        Vector3 smoothFollow = Vector3.Lerp(transform.position,targetPos, smoothSpeed);
 
         transform.position = smoothFollow;
         transform.LookAt(target);
