@@ -11,8 +11,11 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
-        // You can also specify your own offset from inspector
-        // by making isCustomOffset bool to true
+        if (target == null)
+        {
+            target = FindObjectOfType<SnakeHead>().transform;
+        }
+
         if (!isCustomOffset)
         {
             offset = transform.position - target.position;
