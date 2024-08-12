@@ -285,6 +285,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: apple (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
 --- !u!1 &799586464
@@ -438,6 +442,10 @@ PrefabInstance:
     - target: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
       propertyPath: m_Name
       value: apple (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
@@ -683,6 +691,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: apple (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
 --- !u!1 &1828160180
@@ -807,14 +819,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924772709}
-  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: 0, y: 50, z: -53}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 60, z: -53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
 --- !u!114 &1924772713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -828,8 +840,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  isCustomOffset: 0
-  offset: {x: 0, y: 0, z: 0}
+  isCustomDistance: 0
+  baseDistance: {x: 0, y: 0, z: 0}
   smoothSpeed: 0.1
 --- !u!114 &1953706129 stripped
 MonoBehaviour:
@@ -904,6 +916,10 @@ PrefabInstance:
     - target: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
       propertyPath: m_Name
       value: apple
+      objectReference: {fileID: 0}
+    - target: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}

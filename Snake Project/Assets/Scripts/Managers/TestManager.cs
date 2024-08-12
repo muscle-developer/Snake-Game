@@ -18,7 +18,6 @@ public class TestManager : MonoBehaviour
     public float distanceBetween = 0.2f;
     public List<GameObject> bodyParts = new List<GameObject>();
     public List<GameObject> snakeBody = new List<GameObject>();
-    private float countUp = 0f;
 
     // void Awake()
     // {

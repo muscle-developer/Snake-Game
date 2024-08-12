@@ -43,6 +43,14 @@ public class SnakeManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            AddBodyPart();
+        }
+    }
+
     public void AddBodyPart() 
     {
         // PositionsHistory가 비어 있는 경우 현재 위치를 추가
