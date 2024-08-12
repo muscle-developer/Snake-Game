@@ -44,13 +44,13 @@ public class CameraFollow : MonoBehaviour
     {
         int bodyCount = SnakeManager.Instance.BodyParts.Count;
 
-        if (bodyCount >= 40) 
+        if (bodyCount >= 10) 
         {
-            currentDistance = baseDistance * 0.7f; // 40개 이상일 때 70% 거리 증가
+            currentDistance = baseDistance * 0.5f; // 40개 이상일 때 70% 거리 증가
         } 
-        else if(bodyCount >= 10)
+        else if(bodyCount >= 5)
         {
-            currentDistance = baseDistance * 0.5f; // 10개 이상일 때 50% 거리 증가
+            currentDistance = baseDistance * 0.35f; // 10개 이상일 때 50% 거리 증가
         }
         else 
         {
