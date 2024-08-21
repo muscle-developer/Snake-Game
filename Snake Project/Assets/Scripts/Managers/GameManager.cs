@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instace;
+    public SnakeHead player;
 
     public void Awake()
     {
