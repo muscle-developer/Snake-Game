@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ReplaceMap : MonoBehaviour
@@ -9,29 +7,27 @@ public class ReplaceMap : MonoBehaviour
         if(!collision.CompareTag("Area"))
             return;
 
+        Vector3 playerPos = GameManager.Instance.player.transform.position;
+        Vector3 mapPos = this.transform.position;
+
         switch(transform.tag)
         {
             case "Floor":
-                Vector3 playerPos = GameManager.Instace.player.transform.position;
-                Vector3 mapPos = this.transform.position;
-
-                float diffX = Mathf.Abs(playerPos.x - mapPos.x);
-                float diffZ = Mathf.Abs(playerPos.z - mapPos.z);
+                float diffX = playerPos.x - mapPos.x;
+                float diffZ = playerPos.z - mapPos.z;
 
                 float dirX = diffX < 0 ? -1 : 1;
-                float dirZ = diffX < 0 ? -1 : 1;
+                float dirZ = diffZ < 0 ? -1 : 1;
 
                 diffX = Mathf.Abs(diffX);
-                diffZ = Mathf.Abs(diffX);
+                diffZ = Mathf.Abs(diffZ);
 
-                if(diffX > diffZ)
-                {
+                if (diffX > diffZ)
                     transform.Translate(Vector3.right * dirX * 40);
-                }
-                else if(diffX < diffZ)
-                {
-                    transform.Translate(Vector3.up * diffZ * 40);
-                }
+                else if (diffX < diffZ)
+                    transform.Translate(Vector3.forward * dirZ * 40);
+
+                Debug.Log("Moving map to direction: " + (diffX > diffZ ? "X" : "Z"));
             break;
             case "Enemy":
             break;
