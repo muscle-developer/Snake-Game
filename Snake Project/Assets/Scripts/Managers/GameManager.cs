@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     {   
         StartCoroutine(FindPlayerCoroutine());
     }
-
+    
     private IEnumerator FindPlayerCoroutine()
     {
         while (player == null)
