@@ -60,6 +60,10 @@ public class SnakeHead : MonoBehaviour
             Destroy(other.gameObject);
             SnakeManager.Instance.AddBodyPart();
         }
+        else if(other.CompareTag("Wall"))
+        {
+            this.gameObject.GetComponent<Collider>().isTrigger = false;
+        }
     }
 
     public bool isAllowMoveInput = true; // 이동 입력을 허용할지 여부를 나타내는 변수
