@@ -55,7 +55,7 @@ public class SnakeHead : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("apple"))
+        if (other.CompareTag("Apple"))
         {
             Destroy(other.gameObject);
             SnakeManager.Instance.AddBodyPart();
