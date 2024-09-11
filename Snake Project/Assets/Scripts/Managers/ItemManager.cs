@@ -4,11 +4,24 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
-    public List<GameObject> rangeObject = new List<GameObject>(); // 여러 개의 Floor 오브젝트들
+    public List<GameObject> rangeObject = new List<GameObject>(); // 아이템을 생성할 여러 개의 Floor 오브젝트들
+
+    public enum ItemType {APPLE, SPPED, SIZEUP};
+    [System.Serializable]
+    public class ItemData
+    {
+        public ItemType itemType;
+        public GameObject prefab; // 아이템의 프리팹
+    }
+
+    [Header("먹이 아이템")]
     public GameObject applePrefab; // 생성할 사과 프리팹
     public int initialAppleCount = 300; // 초기 생성할 사과 개수
     public int minAppleCount = 100; // 사과가 이 수 이하로 줄어들면 새로 생성
     public int appleToRespawn = 50; // 부족할 때마다 새로 생성할 사과 개수
+
+    [Header("버프 아이템")]
+    public GameManager speedPrefab;
 
     [SerializeField]
     private List<GameObject> spawnedApples = new List<GameObject>(); // 생성된 사과들을 관리할 리스트
