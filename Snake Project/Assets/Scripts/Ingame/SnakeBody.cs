@@ -29,11 +29,11 @@ public class SnakeBody : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.CompareTag("EnemyHead"))
-        {
-            Destroy(other.gameObject);
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if(other.CompareTag("EnemyHead"))
+    //     {
+    //         Destroy(other.gameObject);
+    //     }
+    // }
 }
