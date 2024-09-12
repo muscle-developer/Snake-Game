@@ -6,7 +6,7 @@ public class ItemManager : MonoBehaviour
 {
     public List<GameObject> rangeObject = new List<GameObject>(); // 아이템을 생성할 여러 개의 Floor 오브젝트들
 
-    public enum ItemType {APPLE, SPPED, SIZEUP};
+    public enum ItemType {APPLE, SPPED, MAGNET};
     [System.Serializable]
     public class ItemData
     {
