@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class SnakeBody : MonoBehaviour
 {
-    // 몸체를 움직이기 위한 인덱스 초기화   
-    private int index = 0;
     void FixedUpdate()
     {
+        // 몸체를 움직이기 위한 인덱스 초기화   
+        int index = 0;
         var snakeManager = SnakeManager.Instance;
         // 스네이크의 모든 몸체를 순회
         foreach (var body in snakeManager.BodyParts) 
