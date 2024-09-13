@@ -21,8 +21,11 @@ public class ItemManager : MonoBehaviour
     public int appleToRespawn = 50; // 부족할 때마다 새로 생성할 사과 개수
 
     [Header("버프 아이템")]
-    public GameManager speedPrefab;
 
+
+
+    [Header("생성된 아이템 관리")]
+    
     [SerializeField]
     private List<GameObject> spawnedApples = new List<GameObject>(); // 생성된 사과들을 관리할 리스트
 
@@ -31,11 +34,11 @@ public class ItemManager : MonoBehaviour
         if (rangeObject.Count == 0)
             return;
 
-        // "Floor" 태그가 붙은 모든 오브젝트를 찾아 리스트에 추가
+        // "Floor" 태그를 가진 모든 오브젝트를 찾아 rangeObject 리스트에 추가
         GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
         rangeObject.AddRange(floors);
 
-        // 리스트에서 null 값을 제거
+        // 리스트에서 null 값을 제거하여 유효한 오브젝트들만 남김
         rangeObject.RemoveAll(item => item == null);
     }
 
@@ -48,10 +51,10 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
-        // 초기 사과 생성
+        // 초기 사과 개수만큼 사과 생성
         SpawnApples(initialAppleCount);
 
-        // 사과 수를 지속적으로 확인하고 생성하는 코루틴 시작
+        // 일정 주기로 사과의 수를 체크하고 필요하면 새로 생성하는 코루틴 실행
         StartCoroutine(CheckAndRespawnApples());
     }
 
@@ -66,8 +69,10 @@ public class ItemManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
+            // 랜덤한 위치를 얻음
             Vector3 spawnPosition = ReturnRandomPosition(spawnAppleTransform);
-            if (spawnPosition != Vector3.zero) // 유효한 위치일 경우에만 사과 생성
+            // 유효한 위치일 경우에만 사과 생성
+            if (spawnPosition != Vector3.zero) 
             {
                 // Instantiate 오브젝트를 부모(spawnAppleTransform)를 설정하여 생성
                 GameObject apple = Instantiate(applePrefab, spawnPosition, Quaternion.identity, spawnAppleTransform);
