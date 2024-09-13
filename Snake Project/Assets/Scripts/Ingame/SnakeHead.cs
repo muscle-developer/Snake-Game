@@ -14,8 +14,9 @@ public class SnakeHead : MonoBehaviour
         // 조이스틱 입력이 있는 경우에 목표 방향을 업데이트
         if(joystickDirection != Vector2.zero)
             targetDirection = new Vector3(joystickDirection.x, 0, joystickDirection.y).normalized;
+        // 조이스틱 입력이 없을 때는 현재 목표 방향(바라보는 방향) 유지
         else 
-            targetDirection = direction; // 조이스틱 입력이 없을 때는 현재 목표 방향 유지
+            targetDirection = direction; 
 
         // 입력에 따라 목표 방향을 업데이트 (조이스틱 사용 x 키보드 사용)
         Vector3 inputDirection = Vector3.zero;
@@ -33,25 +34,28 @@ public class SnakeHead : MonoBehaviour
 
     void FixedUpdate()
     {
-        // 현재 방향을 목표 방향으로 부드럽게 전환
+        // 현재 방향을 목표 방향으로 부드럽게 전환 (Slerp는 두 벡터 간의 구면 선형 보간을 수행)
         direction = Vector3.Slerp(direction, targetDirection, SnakeManager.Instance.rotationSpeed * Time.deltaTime).normalized;
 
-        // 현재 방향으로 이동
+        // 현재 방향으로 이동 (SnakeManager의 속도와 Time.deltaTime을 곱해 프레임 독립적인 움직임을 보장)
         transform.position += direction * SnakeManager.Instance.snkaeSpeed * Time.deltaTime;
 
-        // 목표 회전 방향으로 부드럽게 회전
+        // 현재 방향으로 목표 회전 방향을 설정 (LookRotation은 벡터 방향으로의 회전값을 계산)
         Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // 현재 회전 방향에서 목표 회전 방향으로 부드럽게 회전 (RotateTowards는 두 회전 값 사이에서 점진적으로 회전)
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, SnakeManager.Instance.rotationSpeed * Time.deltaTime);
 
-        // Store position history
-        SnakeManager.Instance.PositionsHistory.Insert(0, transform.position); 
+        // 현재 위치를 PositionsHistory에 저장 (위치 히스토리의 가장 앞에 현재 위치를 삽입)
+        SnakeManager.Instance.PositionsHistory.Insert(0, transform.position);
 
-        // PositionsHistory 크기 제한
+        // PositionsHistory의 크기를 1000으로 제한 (1000개를 초과하면 가장 오래된 항목을 제거)
         if (SnakeManager.Instance.PositionsHistory.Count > 1000)
         {
             SnakeManager.Instance.PositionsHistory.RemoveAt(SnakeManager.Instance.PositionsHistory.Count - 1);
         }
     }
+
 
     public void OnTriggerEnter(Collider other)
     {
