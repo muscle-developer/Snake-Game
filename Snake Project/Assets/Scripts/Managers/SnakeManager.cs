@@ -53,13 +53,17 @@ public class SnakeManager : MonoBehaviour
 
     public void AddBodyPart() 
     {
-        // PositionsHistory가 비어 있는 경우 현재 위치를 추가
+        // PositionsHistory가 비어 있는 경우 현재 위치를 히스토리에 추가
         if (PositionsHistory.Count == 0)
             PositionsHistory.Add(transform.position);
 
+        // 새로운 몸체가 추가될 위치를 결정:첫 번째 몸체일 경우 현재 스네이크의 위치, 아니면 히스토리에서 적당한 위치를 찾아서 할당
         Vector3 newPosition = BodyParts.Count == 0 ? transform.position : PositionsHistory[Mathf.Clamp(BodyParts.Count * gap, 0, PositionsHistory.Count - 1)];
 
+        // 몸체 프리팹을 해당 위치에 인스턴스화하고, 첫 번째 몸체의 자식으로 설정
         GameObject body = Instantiate(BodyPrefab, newPosition, Quaternion.identity, BodyParts[0].transform);
+
+        // 생성된 몸체를 BodyParts 리스트에 추가
         BodyParts.Add(body);
     }
 }
