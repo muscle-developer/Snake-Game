@@ -21,13 +21,16 @@ public class ItemManager : MonoBehaviour
     public int appleToRespawn = 50; // 부족할 때마다 새로 생성할 사과 개수
 
     [Header("버프 아이템")]
-
+    public ItemData speedPrefab; // 스피드 버프 아이템
+    public ItemData magnetPrefab; // 자석 아이템
 
 
     [Header("생성된 아이템 관리")]
     
     [SerializeField]
     private List<GameObject> spawnedApples = new List<GameObject>(); // 생성된 사과들을 관리할 리스트
+    [SerializeField]
+    private List<GameObject> spawnedBuffs = new List<GameObject>(); // 생성된 버프 아이템들을 관리할 리스트
 
     private void Awake()
     {
@@ -51,14 +54,38 @@ public class ItemManager : MonoBehaviour
             return;
         }
 
-        // 초기 사과 개수만큼 사과 생성
-        SpawnApples(initialAppleCount);
+        // 초기 사과 생성
+        SpawnItems(applePrefab, initialAppleCount, spawnedApples, "Spawn Apple");
 
-        // 일정 주기로 사과의 수를 체크하고 필요하면 새로 생성하는 코루틴 실행
+        // 버프 아이템 생성 (예시: 스피드와 자석)
+        SpawnItems(speedPrefab.prefab, 5, spawnedBuffs, "Spawn Item"); // 5개의 스피드 아이템 생성
+        SpawnItems(magnetPrefab.prefab, 5, spawnedBuffs, "Spawn Item"); // 5개의 자석 아이템 생성
+
+        // 사과 수를 지속적으로 확인하고 생성하는 코루틴 시작
         StartCoroutine(CheckAndRespawnApples());
     }
 
-    // 사과를 특정 개수만큼 생성하는 함수
+    // 특정 아이템을 원하는 개수만큼 생성하는 함수
+    private void SpawnItems(GameObject prefab, int count, List<GameObject> spawnedList, string spawnParentName)
+    {
+        GameObject spawnArea = GameObject.Find("Spawn Area");
+        Transform spawnTransform = spawnArea?.transform.Find(spawnParentName);
+
+        if (spawnArea == null || spawnTransform == null)
+            return;
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 spawnPosition = ReturnRandomPosition(spawnTransform);
+            if (spawnPosition != Vector3.zero)
+            {
+                GameObject item = Instantiate(prefab, spawnPosition, Quaternion.identity, spawnTransform);
+                spawnedList.Add(item);
+            }
+        }
+    }
+
+#region 사과를 특정 개수만큼 생성하는 함수
     private void SpawnApples(int count)
     {
         GameObject spawnArea = GameObject.Find("Spawn Area");
@@ -79,7 +106,7 @@ public class ItemManager : MonoBehaviour
                 spawnedApples.Add(apple);
             }
         }
-#region BoxCollider을 사용한 랜덤생성
+    #region BoxCollider을 사용한 랜덤생성
         // for (int i = 0; i < count; i++)
         // {
         //     // 무작위로 rangeObject에서 오브젝트 선택
@@ -105,6 +132,7 @@ public class ItemManager : MonoBehaviour
         // }
 #endregion
     }
+#endregion
 
     // 사과의 수가 줄어들면 새로 생성하는 코루틴
     IEnumerator CheckAndRespawnApples()
