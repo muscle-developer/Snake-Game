@@ -64,6 +64,14 @@ public class SnakeHead : MonoBehaviour
             Destroy(other.gameObject);
             SnakeManager.Instance.AddBodyPart();
         }
+        else if(other.CompareTag("Spped"))
+        {
+
+        }
+        else if(other.CompareTag("Magnet"))
+        {
+
+        }
         else if(other.CompareTag("Wall"))
         {
             this.gameObject.GetComponent<Collider>().isTrigger = false;
