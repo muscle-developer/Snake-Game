@@ -41,4 +41,5 @@ public class IngameController : MonoBehaviour
         SnakeManager.Instance.BodyParts.Add(snakeHead); // SnakeHead를 BodyParts에 추가
         SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
     }
+
 }

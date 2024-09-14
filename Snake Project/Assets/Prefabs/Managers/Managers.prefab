@@ -180,4 +180,11 @@ MonoBehaviour:
   initialAppleCount: 300
   minAppleCount: 100
   appleToRespawn: 50
+  speedPrefab:
+    itemType: 1
+    prefab: {fileID: 2357376797576725488, guid: d0e7056c559d948dcbd4285267612238, type: 3}
+  magnetPrefab:
+    itemType: 2
+    prefab: {fileID: 7173908672501464601, guid: 9963f5271b732405896a7931e3aa41d9, type: 3}
   spawnedApples: []
+  spawnedBuffs: []
