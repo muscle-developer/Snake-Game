@@ -6,8 +6,10 @@ TagManager:
   tags:
   - Area
   - Floor
-  - apple
   - Wall
+  - Apple
+  - Speed
+  - Magnet
   layers:
   - Default
   - TransparentFX

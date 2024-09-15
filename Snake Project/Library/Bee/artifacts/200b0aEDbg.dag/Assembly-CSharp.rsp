@@ -362,6 +362,7 @@
 "Assets/Scripts/Components/VirtualJoystick.cs"
 "Assets/Scripts/Controller/IngameController.cs"
 "Assets/Scripts/Controller/OutgameController.cs"
+"Assets/Scripts/Ingame/Item.cs"
 "Assets/Scripts/Ingame/ReplaceMap.cs"
 "Assets/Scripts/Ingame/SnakeBody.cs"
 "Assets/Scripts/Ingame/SnakeHead.cs"

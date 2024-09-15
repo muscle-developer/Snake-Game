@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class SnakeHead : MonoBehaviour
@@ -65,12 +66,15 @@ public class SnakeHead : MonoBehaviour
             SnakeManager.Instance.AddBodyPart();
         }
         else if(other.CompareTag("Spped"))
-        {
-
+        {   
+            // TODO: 코드 수정중
+            SnakeManager.Instance.snkaeSpeed = SnakeManager.Instance.snkaeSpeed * 2;
+            SnakeManager.Instance.bodySpeed = SnakeManager.Instance.bodySpeed * 2;
+            SnakeManager.Instance.rotationSpeed = SnakeManager.Instance.rotationSpeed * 2;
         }
         else if(other.CompareTag("Magnet"))
-        {
-
+        {   
+            // TODO: 자석 효과
         }
         else if(other.CompareTag("Wall"))
         {
