@@ -6,6 +6,6 @@ public class Item : MonoBehaviour
 {
     void Start()
     {
-        
+        // ItemManager.Instance.itemdata
     }    
 }   
