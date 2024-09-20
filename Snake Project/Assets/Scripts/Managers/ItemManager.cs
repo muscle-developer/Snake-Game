@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemManager : MonoBehaviour
 {
+    public static ItemManager Instance;
     public List<GameObject> rangeObject = new List<GameObject>(); // 아이템을 생성할 여러 개의 Floor 오브젝트들
 
     public enum ItemType {APPLE, SPPED, MAGNET};
@@ -34,6 +35,8 @@ public class ItemManager : MonoBehaviour
 
     private void Awake()
     {
+        ItemManager.Instance = this;
+
         if (rangeObject.Count == 0)
             return;
 
