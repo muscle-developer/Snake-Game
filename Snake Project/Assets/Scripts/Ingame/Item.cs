@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public ItemManager.ItemType itemtype;
     void Start()
     {
-        // ItemManager.Instance.itemdata
+        
     }    
 }   
