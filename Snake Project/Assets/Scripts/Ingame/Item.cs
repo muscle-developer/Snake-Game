@@ -11,9 +11,31 @@ public class Item : MonoBehaviour
     {
         if (other.CompareTag("Player")) // 플레이어와 충돌했는지 확인
         {
-            // ApplyItemEffect(other.gameObject); // 효과 적용
+            ApplyItemEffect(other.gameObject); // 효과 적용
             gameObject.SetActive(false);
             // Destroy(gameObject); // 아이템을 사용 후 파괴
-        }
+        }        
     }    
+
+    // 아이템 효과 적용 로직
+    private void ApplyItemEffect(GameObject player)
+    {
+        SnakeManager snakeManager = player.GetComponent<SnakeManager>();
+        
+        if (snakeManager != null)
+        {
+            switch (itemtype)
+            {
+                case ItemManager.ItemType.APPLE:
+                    snakeManager.AddBodyPart(); // 사과는 몸체 추가
+                    break;
+                case ItemManager.ItemType.SPEED:
+                    snakeManager.ApplySpeedBoost(2f, 5f); // 스피드 부스트
+                    break;
+                case ItemManager.ItemType.MAGNET:
+                    snakeManager.ActivateMagnet(5f); // 자석 활성화
+                    break;
+            }
+        }
+    }
 }   
