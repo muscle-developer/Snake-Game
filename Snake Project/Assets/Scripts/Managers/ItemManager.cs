@@ -7,7 +7,7 @@ public class ItemManager : MonoBehaviour
     public static ItemManager Instance;
     public List<GameObject> rangeObject = new List<GameObject>(); // 아이템을 생성할 여러 개의 Floor 오브젝트들
 
-    public enum ItemType {APPLE, SPPED, MAGNET};
+    public enum ItemType {APPLE, SPEED, MAGNET};
     [System.Serializable]
     public class ItemData
     {
@@ -61,8 +61,8 @@ public class ItemManager : MonoBehaviour
         SpawnItems(applePrefab, initialAppleCount, spawnedApples, "Spawn Apple");
 
         // 버프 아이템 생성 (예시: 스피드와 자석)
-        SpawnItems(speedPrefab.prefab, 5, spawnedBuffs, "Spawn Item"); // 5개의 스피드 아이템 생성
-        SpawnItems(magnetPrefab.prefab, 5, spawnedBuffs, "Spawn Item"); // 5개의 자석 아이템 생성
+        SpawnItems(speedPrefab.prefab, 15, spawnedBuffs, "Spawn Item"); // 5개의 스피드 아이템 생성
+        SpawnItems(magnetPrefab.prefab, 15, spawnedBuffs, "Spawn Item"); // 5개의 자석 아이템 생성
 
         // 사과 수를 지속적으로 확인하고 생성하는 코루틴 시작
         StartCoroutine(CheckAndRespawnApples());
