@@ -57,27 +57,6 @@ public class SnakeHead : MonoBehaviour
         }
     }
 
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Apple"))
-        {
-            Destroy(other.gameObject);
-            SnakeManager.Instance.AddBodyPart();
-        }
-        else if(other.CompareTag("Spped"))
-        {   
-            // TODO: 코드 수정중
-            SnakeManager.Instance.snkaeSpeed = SnakeManager.Instance.snkaeSpeed * 2;
-            SnakeManager.Instance.bodySpeed = SnakeManager.Instance.bodySpeed * 2;
-            SnakeManager.Instance.rotationSpeed = SnakeManager.Instance.rotationSpeed * 2;
-        }
-        else if(other.CompareTag("Magnet"))
-        {   
-            // TODO: 자석 효과
-        }
-    }
-
     public bool isAllowMoveInput = true; // 이동 입력을 허용할지 여부를 나타내는 변수
 
     // 새로운 이동 방향을 설정하는 메서드입니다.
