@@ -21,6 +21,9 @@ public class SnakeManager : MonoBehaviour
     public List<GameObject> BodyParts = new List<GameObject>(); // 스네이크 몸체 오브젝트들을 저장하는 리스트
     public List<Vector3> PositionsHistory = new List<Vector3>(); // 스네이크의 위치 히스토리, 몸체들이 이 히스토리를 따라감
 
+    [Header("아이템 관련")]
+    private bool isMagnetActive = false;
+
     void Awake()
     {
         if(Instance == null)
@@ -65,5 +68,31 @@ public class SnakeManager : MonoBehaviour
 
         // 생성된 몸체를 BodyParts 리스트에 추가
         BodyParts.Add(body);
+    }
+
+    // 스피드 부스트 적용 함수
+    public void ApplySpeedBoost(float boostAmount, float duration)
+    {
+        snkaeSpeed += boostAmount;
+        StartCoroutine(ResetSpeedAfterDuration(boostAmount, duration));
+    }
+
+    IEnumerator ResetSpeedAfterDuration(float boostAmount, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        snkaeSpeed -= boostAmount;
+    }
+
+    // 자석 효과 활성화 함수
+    public void ActivateMagnet(float duration)
+    {
+        isMagnetActive = true;
+        StartCoroutine(DeactivateMagnetAfterDuration(duration));
+    }
+
+    IEnumerator DeactivateMagnetAfterDuration(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        isMagnetActive = false;
     }
 }
