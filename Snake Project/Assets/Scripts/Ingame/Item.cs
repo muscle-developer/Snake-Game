@@ -5,22 +5,23 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public ItemManager.ItemType itemtype;
+    private SnakeManager snakeManager;
 
     // 플레이어와 충돌 시 아이템의 효과를 적용하는 메서드
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // 플레이어와 충돌했는지 확인
+        if (other.CompareTag("Snake Head")) // 플레이어와 충돌했는지 확인
         {
             ApplyItemEffect(other.gameObject); // 효과 적용
-            gameObject.SetActive(false);
-            // Destroy(gameObject); // 아이템을 사용 후 파괴
+            // other.gameObject.SetActive(false);
+            Destroy(gameObject); // 아이템을 사용 후 파괴
         }        
     }    
 
     // 아이템 효과 적용 로직
     private void ApplyItemEffect(GameObject player)
     {
-        SnakeManager snakeManager = player.GetComponent<SnakeManager>();
+        snakeManager = SnakeManager.Instance;
         
         if (snakeManager != null)
         {
@@ -30,7 +31,7 @@ public class Item : MonoBehaviour
                     snakeManager.AddBodyPart(); // 사과는 몸체 추가
                     break;
                 case ItemManager.ItemType.SPEED:
-                    snakeManager.ApplySpeedBoost(2f, 5f); // 스피드 부스트
+                    snakeManager.ApplySpeedBoost(5f, 5f); // 스피드 부스트
                     break;
                 case ItemManager.ItemType.MAGNET:
                     snakeManager.ActivateMagnet(5f); // 자석 활성화
