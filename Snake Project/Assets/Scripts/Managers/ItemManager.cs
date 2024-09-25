@@ -142,7 +142,7 @@ public class ItemManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
 
             // 현재 사과의 개수를 확인
             spawnedApples.RemoveAll(apple => apple == null); // 리스트에서 제거된 사과(null)를 삭제

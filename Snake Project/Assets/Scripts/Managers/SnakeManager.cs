@@ -61,7 +61,11 @@ public class SnakeManager : MonoBehaviour
             PositionsHistory.Add(transform.position);
 
         // 새로운 몸체가 추가될 위치를 결정:첫 번째 몸체일 경우 현재 스네이크의 위치, 아니면 히스토리에서 적당한 위치를 찾아서 할당
-        Vector3 newPosition = BodyParts.Count == 0 ? transform.position : PositionsHistory[Mathf.Clamp(BodyParts.Count * gap, 0, PositionsHistory.Count - 1)];
+        // Vector3 newPosition = BodyParts.Count == 0 ? transform.position : PositionsHistory[Mathf.Clamp(BodyParts.Count * gap, 0, PositionsHistory.Count - 1)];
+
+        // 히스토리에서 적절한 위치를 선택하도록 인덱스 계산
+        int index = Mathf.Clamp(BodyParts.Count * gap, 0, PositionsHistory.Count - 1);
+        Vector3 newPosition = PositionsHistory[index];
 
         // 몸체 프리팹을 해당 위치에 인스턴스화하고, 첫 번째 몸체의 자식으로 설정
         GameObject body = Instantiate(BodyPrefab, newPosition, Quaternion.identity, BodyParts[0].transform);
@@ -73,6 +77,7 @@ public class SnakeManager : MonoBehaviour
     // 스피드 부스트 적용 함수
     public void ApplySpeedBoost(float boostAmount, float duration)
     {
+        StopCoroutine(ResetSpeedAfterDuration(boostAmount, duration)); // 이미 실행 중인 코루틴 중지
         snkaeSpeed += boostAmount;
         StartCoroutine(ResetSpeedAfterDuration(boostAmount, duration));
     }
@@ -86,6 +91,7 @@ public class SnakeManager : MonoBehaviour
     // 자석 효과 활성화 함수
     public void ActivateMagnet(float duration)
     {
+        StopCoroutine(DeactivateMagnetAfterDuration(duration)); // 이미 실행 중인 코루틴 중지
         isMagnetActive = true;
         StartCoroutine(DeactivateMagnetAfterDuration(duration));
     }
