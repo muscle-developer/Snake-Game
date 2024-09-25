@@ -31,6 +31,10 @@ public class SnakeHead : MonoBehaviour
         {
             targetDirection = inputDirection.normalized;
         }
+
+        // 자석 효과가 활성화된 경우에만 아이템 끌어오기
+        if (SnakeManager.Instance.isMagnetActive)
+            SnakeManager.Instance.AttractItems();
     }
 
     void FixedUpdate()

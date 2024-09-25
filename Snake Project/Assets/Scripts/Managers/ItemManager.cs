@@ -62,7 +62,7 @@ public class ItemManager : MonoBehaviour
 
         // 버프 아이템 생성 (예시: 스피드와 자석)
         SpawnItems(speedPrefab.prefab, 15, spawnedBuffs, "Spawn Item"); // 5개의 스피드 아이템 생성
-        SpawnItems(magnetPrefab.prefab, 15, spawnedBuffs, "Spawn Item"); // 5개의 자석 아이템 생성
+        SpawnItems(magnetPrefab.prefab, 105, spawnedBuffs, "Spawn Item"); // 5개의 자석 아이템 생성
 
         // 사과 수를 지속적으로 확인하고 생성하는 코루틴 시작
         StartCoroutine(CheckAndRespawnApples());

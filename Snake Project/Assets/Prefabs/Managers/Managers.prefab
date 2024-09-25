@@ -85,6 +85,9 @@ MonoBehaviour:
   BodyPrefab: {fileID: 2013645530069422924, guid: 1aaadea5aad1d41abb3a151c49a178d8, type: 3}
   BodyParts: []
   PositionsHistory: []
+  isMagnetActive: 0
+  magnetRange: 10
+  magnetPullSpeed: 15
 --- !u!1 &3659818116617692982
 GameObject:
   m_ObjectHideFlags: 0

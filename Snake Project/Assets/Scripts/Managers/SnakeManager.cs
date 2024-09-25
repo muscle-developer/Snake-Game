@@ -22,7 +22,9 @@ public class SnakeManager : MonoBehaviour
     public List<Vector3> PositionsHistory = new List<Vector3>(); // 스네이크의 위치 히스토리, 몸체들이 이 히스토리를 따라감
 
     [Header("아이템 관련")]
-    private bool isMagnetActive = false;
+    public bool isMagnetActive = false;
+    public float magnetRange = 10.0f; // 자석의 영향 범위
+    public float magnetPullSpeed = 15.0f; // 아이템이 스네이크에게 끌려오는 속도
 
     void Awake()
     {
@@ -100,5 +102,22 @@ public class SnakeManager : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         isMagnetActive = false;
+    }
+
+    // 자석 범위 내의 아이템들을 스네이크 쪽으로 끌어당기는 함수
+    public void AttractItems()
+    {
+        // 일정 범위 내의 모든 아이템 탐지
+        Collider[] hitColliders = Physics.OverlapSphere(GameManager.Instance.player.transform.position, magnetRange);
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Apple"))
+            {
+                // 아이템을 스네이크 쪽으로 이동
+                Vector3 direction = (GameManager.Instance.player.transform.position - hitCollider.transform.position).normalized;
+                hitCollider.transform.position += direction * magnetPullSpeed * Time.deltaTime;
+            }
+        }
     }
 }
