@@ -173,7 +173,7 @@ public class ItemManager : MonoBehaviour
         float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
         
         // Y축은 0으로 고정하고 X, Z 축에만 변화를 줌
-        Vector3 randomPosition = new Vector3(randomX, 0f, randomZ);
+        Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
 
         // 최종 생성 위치 계산
         Vector3 respawnPosition = originPosition + randomPosition;
