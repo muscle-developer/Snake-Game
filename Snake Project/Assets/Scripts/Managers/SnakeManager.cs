@@ -12,7 +12,7 @@ public class SnakeManager : MonoBehaviour
     public float snkaeSpeed = 5.0f; // 스네이크의 이동 속도
     public float rotationSpeed = 300.0f; // 스네이크가 회전하는 속도
     public float bodySpeed = 5.0f; // 스네이크의 몸체가 따라오는 속도
-    public int gap = 10; // 몸체 간의 거리 (PositionsHistory 내에서의 인덱스 차이)
+    public float gap = 10f; // 몸체 간의 거리 (PositionsHistory 내에서의 인덱스 차이)
 
     // References
     public GameObject BodyPrefab;
@@ -25,6 +25,9 @@ public class SnakeManager : MonoBehaviour
     public bool isMagnetActive = false;
     public float magnetRange = 10.0f; // 자석의 영향 범위
     public float magnetPullSpeed = 15.0f; // 아이템이 스네이크에게 끌려오는 속도
+    
+    // 추가: 스피드 부스트 코루틴을 추적할 변수
+    private Coroutine speedBoostCoroutine;
 
     void Awake()
     {
@@ -66,7 +69,7 @@ public class SnakeManager : MonoBehaviour
         // Vector3 newPosition = BodyParts.Count == 0 ? transform.position : PositionsHistory[Mathf.Clamp(BodyParts.Count * gap, 0, PositionsHistory.Count - 1)];
 
         // 히스토리에서 적절한 위치를 선택하도록 인덱스 계산
-        int index = Mathf.Clamp(BodyParts.Count * gap, 0, PositionsHistory.Count - 1);
+        int index = Mathf.Clamp(BodyParts.Count * (int)gap, 0, PositionsHistory.Count - 1);
         Vector3 newPosition = PositionsHistory[index];
 
         // 몸체 프리팹을 해당 위치에 인스턴스화하고, 첫 번째 몸체의 자식으로 설정
@@ -79,15 +82,45 @@ public class SnakeManager : MonoBehaviour
     // 스피드 부스트 적용 함수
     public void ApplySpeedBoost(float boostAmount, float duration)
     {
-        StopCoroutine(ResetSpeedAfterDuration(boostAmount, duration)); // 이미 실행 중인 코루틴 중지
-        snkaeSpeed += boostAmount;
-        StartCoroutine(ResetSpeedAfterDuration(boostAmount, duration));
+        // 이미 실행 중인 스피드 부스트가 있으면 중지
+        if (speedBoostCoroutine != null)
+        {
+            StopCoroutine(speedBoostCoroutine);
+        }
+
+        // 스피드가 5보다 작을 때만 부스트 추가
+        if (snkaeSpeed == 5f && bodySpeed == 5f)
+        {
+            snkaeSpeed += boostAmount;
+            bodySpeed += boostAmount;
+            StartCoroutine(SmoothGapChange(5f, 0.5f)); // 스피드 부스트가 활성화될 때 gap을 부드럽게 줄임
+        }
+
+        // 지속시간을 갱신하여 새로운 코루틴 실행
+        speedBoostCoroutine = StartCoroutine(ResetSpeedAfterDuration(boostAmount, duration));
     }
 
     IEnumerator ResetSpeedAfterDuration(float boostAmount, float duration)
     {
         yield return new WaitForSeconds(duration);
         snkaeSpeed -= boostAmount;
+        bodySpeed -= boostAmount;
+        StartCoroutine(SmoothGapChange(10f, 1f)); // 원래 값으로 부드럽게 gap을 늘림
+    }
+
+    IEnumerator SmoothGapChange(float targetGap, float smoothTime)
+    {
+        float currentGap = gap;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < smoothTime)
+        {
+            gap = Mathf.Lerp(currentGap, targetGap, elapsedTime / smoothTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        gap = targetGap;
     }
 
     // 자석 효과 활성화 함수

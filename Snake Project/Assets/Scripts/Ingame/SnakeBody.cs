@@ -13,7 +13,7 @@ public class SnakeBody : MonoBehaviour
         foreach (var body in snakeManager.BodyParts) 
         {
             // PositionsHistory에서 각 몸체의 위치를 참조
-            Vector3 point = snakeManager.PositionsHistory[Mathf.Clamp(index * snakeManager.gap, 0, snakeManager.PositionsHistory.Count - 1)];
+            Vector3 point = snakeManager.PositionsHistory[Mathf.Clamp(index * (int)snakeManager.gap, 0, snakeManager.PositionsHistory.Count - 1)];
             
             // 목표 지점으로의 이동 방향 계산
             Vector3 moveDirection = point - body.transform.position;
