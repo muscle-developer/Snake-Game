@@ -1006,7 +1006,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283618553}
   m_Layer: 0
-  m_Name: Spawn Apple
+  m_Name: Spawn apple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1434,12 +1434,12 @@ GameObject:
   m_Component:
   - component: {fileID: 485476361}
   m_Layer: 0
-  m_Name: Spawn Speed
+  m_Name: Spawn speed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &485476361
 Transform:
   m_ObjectHideFlags: 0
@@ -4113,7 +4113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1531905372
 Transform:
   m_ObjectHideFlags: 0
@@ -5005,12 +5005,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1773467531}
   m_Layer: 0
-  m_Name: Spawn Magnet
+  m_Name: Spawn magnet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1773467531
 Transform:
   m_ObjectHideFlags: 0
