@@ -170,34 +170,9 @@ public class ItemManager : MonoBehaviour
         // X, Z 축 범위 내에서 랜덤 좌표 생성
         float randomX = Random.Range(-scale.x / 2, scale.x / 2);
         float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
-
-        // 아이템의 Collider나 Renderer로 높이 계산
-        float itemHeight = 0.0f;
-        Collider itemCollider = prefab.GetComponent<Collider>();
-        if (itemCollider != null && !itemCollider.isTrigger) // isTrigger가 아닌 경우만 처리
-        {
-            itemHeight = itemCollider.bounds.size.y; // 콜라이더의 높이
-        }
-        else
-        {
-            // 콜라이더가 없거나 isTrigger인 경우, Renderer의 크기를 사용
-            Renderer itemRenderer = prefab.GetComponentInChildren<Renderer>();
-            if (itemRenderer != null)
-            {
-                itemHeight = itemRenderer.bounds.size.y; // 렌더러의 높이
-            }
-            else
-            {
-                Debug.LogWarning("아이템에 Collider나 Renderer가 없습니다.");
-                itemHeight = 1.0f; // 기본값으로 1을 사용 (없을 경우를 대비)
-            }
-        }
-
-        // Y축은 바닥의 Y 위치에 아이템 높이의 절반을 더하여 바닥에 맞게 조정
-        float spawnY = originPosition.y + (itemHeight / 2);
         
         // Y축은 0으로 고정하고 X, Z 축에만 변화를 줌
-        Vector3 randomPosition = new Vector3(randomX, spawnY, randomZ);
+        Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
 
         // 최종 생성 위치 계산
         Vector3 respawnPosition = originPosition + randomPosition;
