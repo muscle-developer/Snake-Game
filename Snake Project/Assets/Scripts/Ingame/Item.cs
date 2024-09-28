@@ -29,6 +29,7 @@ public class Item : MonoBehaviour
             {
                 case ItemManager.ItemType.APPLE:
                     snakeManager.AddBodyPart(); // 사과는 몸체 추가
+                    player.GetComponentInChildren<PlayerCanvas>().LevelUp(); // 레벨업 호출
                     break;
                 case ItemManager.ItemType.SPEED:
                     snakeManager.ApplySpeedBoost(5f, 5f); // 스피드 부스트
