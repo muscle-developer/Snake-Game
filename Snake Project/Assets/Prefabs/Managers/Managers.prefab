@@ -29,6 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 566999201857524320}
+  - {fileID: 1265689792552148029}
   - {fileID: 6867553778808045573}
   - {fileID: 7098336367372897931}
   m_Father: {fileID: 0}
@@ -64,7 +65,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5958019724837571925}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8294934353038703925
 MonoBehaviour:
@@ -163,7 +164,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5958019724837571925}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4373697846454455626
 MonoBehaviour:
@@ -186,8 +187,38 @@ MonoBehaviour:
     prefab: {fileID: 2357376797576725488, guid: d0e7056c559d948dcbd4285267612238, type: 3}
   - itemType: 2
     prefab: {fileID: 7173908672501464601, guid: 9963f5271b732405896a7931e3aa41d9, type: 3}
-  applePrefab: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
   initialAppleCount: 300
   minAppleCount: 100
   appleToRespawn: 50
   spawnedItems: []
+--- !u!1 &8676576513518001366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1265689792552148029}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1265689792552148029
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676576513518001366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5958019724837571925}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
