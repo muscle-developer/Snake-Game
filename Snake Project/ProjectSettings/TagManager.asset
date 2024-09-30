@@ -11,6 +11,7 @@ TagManager:
   - Speed
   - Magnet
   - Sanek Body
+  - Snake Head
   layers:
   - Default
   - TransparentFX
