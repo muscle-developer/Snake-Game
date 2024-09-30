@@ -60,16 +60,19 @@ public class ItemManager : MonoBehaviour
         StartCoroutine(CheckAndRespawnApples());
     }
 
-    // 아이템 타입에 따라 원하는 개수만큼 생성하는 함수
+    // 아이템 타입에 따라 원하는 개수만큼 아이템을 생성하는 함수
     private void SpawnItemsByType(ItemType type, int count)
     {
         GameObject spawnArea = GameObject.Find("Spawn Area");
+        
+        // "Spawn {type}"라는 하위 오브젝트(스폰 트랜스폼)를 찾음
+        // 예: Spawn apple, Spawn speed 등 타입에 따라 하위 오브젝트 이름이 다름
         Transform spawnTransform = spawnArea?.transform.Find($"Spawn {type.ToString().ToLower()}");
 
         if (spawnArea == null || spawnTransform == null)
             return;
 
-        // 해당 타입의 프리팹을 리스트에서 검색
+        // 아이템 리스트에서 주어진 타입의 아이템 데이터를 찾음
         ItemData itemData = items.Find(item => item.itemType == type);
 
         if (itemData == null || itemData.prefab == null)
@@ -77,10 +80,16 @@ public class ItemManager : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
+            // 해당 타입의 프리팹에 맞는 랜덤 위치를 반환
             Vector3 spawnPosition = ReturnRandomPosition(itemData.prefab, spawnTransform);
+
+            // 유효한 스폰 위치(Vector3.zero이 아닌 위치)를 받은 경우에만 아이템을 생성
             if (spawnPosition != Vector3.zero)
             {
+                // 프리팹을 스폰 위치에 생성하고, 스폰 트랜스폼의 자식으로 설정
                 GameObject item = Instantiate(itemData.prefab, spawnPosition, Quaternion.identity, spawnTransform);
+                
+                // 생성된 아이템을 리스트에 추가하여 관리
                 spawnedItems.Add(item);
             }
         }
@@ -142,12 +151,15 @@ public class ItemManager : MonoBehaviour
         {
             yield return new WaitForSeconds(5f);
 
-            // 현재 사과의 개수를 확인
-            spawnedItems.RemoveAll(item => item == null); // null 삭제
+            // 현재 스폰된 아이템 중 null인 항목을 삭제하여 리스트 정리
+            spawnedItems.RemoveAll(item => item == null); 
+            // 사과(Apple) 아이템의 개수를 확인 (이름에 "Apple"이 포함된 오브젝트 카운트)
             int appleCount = spawnedItems.FindAll(item => item.name.Contains("Apple")).Count;
 
+            // 사과 개수가 설정된 최소 개수보다 적을 경우 추가 생성
             if (appleCount < minAppleCount)
             {
+                // 사과가 부족할 경우, 로그를 출력하고 필요한 개수만큼 사과를 추가로 생성
                 Debug.Log($"사과 개수가 부족합니다. {appleToRespawn}개 추가 생성합니다.");
                 SpawnItemsByType(ItemType.APPLE, appleToRespawn);
             }
