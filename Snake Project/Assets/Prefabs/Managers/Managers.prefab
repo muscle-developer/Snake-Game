@@ -200,6 +200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1265689792552148029}
+  - component: {fileID: 5064231297016233199}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -222,3 +223,15 @@ Transform:
   m_Father: {fileID: 5958019724837571925}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5064231297016233199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676576513518001366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544b82628cff9451fb6257fd592a5d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
