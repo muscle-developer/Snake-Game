@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance;
-    public List<GameObject> rangeObject = new List<GameObject>(); // 아이템을 생성할 여러 개의 Floor 오브젝트들
 
     public enum ItemType {APPLE, SPEED, MAGNET};
     [System.Serializable]
@@ -13,26 +12,24 @@ public class ItemManager : MonoBehaviour
     {
         public ItemType itemType;
         public GameObject prefab; // 아이템의 프리팹
+        public int poolSize; // 각 아이템에 대한 풀 크기
     }
 
     [Header("아이템 데이터")]
     public List<ItemData> items = new List<ItemData>(); // 여러 아이템을 리스트로 관리
 
     [Header("먹이 아이템")]
-    public int initialAppleCount = 300; // 초기 생성할 사과 개수
-    public int minAppleCount = 100; // 사과가 이 수 이하로 줄어들면 새로 생성
+    public int minAppleCount = 300; // 사과가 이 수 이하로 줄어들면 새로 생성
     public int appleToRespawn = 50; // 부족할 때마다 새로 생성할 사과 개수
 
     [Header("생성된 아이템 관리")]
     [SerializeField]
     private List<GameObject> spawnedItems = new List<GameObject>(); // 생성된 아이템들을 통합 관리할 리스트
+    public List<GameObject> rangeObject = new List<GameObject>(); // 아이템을 생성할 여러 개의 Floor 오브젝트들
 
     private void Awake()
     {
-        ItemManager.Instance = this;
-
-        if (rangeObject.Count == 0)
-            return;
+        Instance = this;
 
         // "Floor" 태그를 가진 모든 오브젝트를 찾아 rangeObject 리스트에 추가
         GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
@@ -40,6 +37,12 @@ public class ItemManager : MonoBehaviour
 
         // 리스트에서 null 값을 제거하여 유효한 오브젝트들만 남김
         rangeObject.RemoveAll(item => item == null);
+
+        // 풀 생성
+        foreach (var itemData in items)
+        {
+            PoolManager.Instance.CreatePool(itemData.prefab, itemData.poolSize);
+        }
     }
 
     private void Start()
@@ -52,7 +55,7 @@ public class ItemManager : MonoBehaviour
         }
 
         // 초기 아이템 생성 (사과와 버프 아이템)
-        SpawnItemsByType(ItemType.APPLE, initialAppleCount);
+        SpawnItemsByType(ItemType.APPLE, minAppleCount);
         SpawnItemsByType(ItemType.SPEED, 15);
         SpawnItemsByType(ItemType.MAGNET, 15);
 
@@ -60,13 +63,12 @@ public class ItemManager : MonoBehaviour
         StartCoroutine(CheckAndRespawnApples());
     }
 
-    // 아이템 타입에 따라 원하는 개수만큼 아이템을 생성하는 함수
+    // 아이템 타입에 따라 아이템 스폰
     private void SpawnItemsByType(ItemType type, int count)
     {
+        // "Spawn Area"를 찾아 스폰 위치를 관리
         GameObject spawnArea = GameObject.Find("Spawn Area");
-        
-        // "Spawn {type}"라는 하위 오브젝트(스폰 트랜스폼)를 찾음
-        // 예: Spawn apple, Spawn speed 등 타입에 따라 하위 오브젝트 이름이 다름
+        // "Spawn {type}"라는 이름의 자식 오브젝트를 찾음 (예: Spawn apple, Spawn speed 등)
         Transform spawnTransform = spawnArea?.transform.Find($"Spawn {type.ToString().ToLower()}");
 
         if (spawnArea == null || spawnTransform == null)
@@ -75,25 +77,29 @@ public class ItemManager : MonoBehaviour
         // 아이템 리스트에서 주어진 타입의 아이템 데이터를 찾음
         ItemData itemData = items.Find(item => item.itemType == type);
 
-        if (itemData == null || itemData.prefab == null)
+        if (itemData == null)
             return;
 
         for (int i = 0; i < count; i++)
         {
             // 해당 타입의 프리팹에 맞는 랜덤 위치를 반환
-            Vector3 spawnPosition = ReturnRandomPosition(itemData.prefab, spawnTransform);
+            Vector3 spawnPosition = ReturnRandomPosition(itemData.prefab);
 
             // 유효한 스폰 위치(Vector3.zero이 아닌 위치)를 받은 경우에만 아이템을 생성
             if (spawnPosition != Vector3.zero)
             {
-                // 프리팹을 스폰 위치에 생성하고, 스폰 트랜스폼의 자식으로 설정
-                GameObject item = Instantiate(itemData.prefab, spawnPosition, Quaternion.identity, spawnTransform);
-                
+                // 풀에서 아이템을 가져와서 사용
+                GameObject item = PoolManager.Instance.GetFromPool(itemData.prefab, spawnPosition, Quaternion.identity);
+
+                // 스폰 트랜스폼의 자식으로 설정 (Spawn Apple 등의 하위 오브젝트로 생성)
+                item.transform.SetParent(spawnTransform, false);
+
                 // 생성된 아이템을 리스트에 추가하여 관리
                 spawnedItems.Add(item);
             }
         }
     }
+
 
 #region 사과를 특정 개수만큼 생성하는 함수
     private void SpawnApples(int count)
@@ -144,76 +150,89 @@ public class ItemManager : MonoBehaviour
     }
 #endregion
 
-    // 사과의 수가 줄어들면 새로 생성하는 코루틴
+    // 사과의 수를 확인하고 부족하면 다시 스폰
     IEnumerator CheckAndRespawnApples()
     {
         while (true)
         {
             yield return new WaitForSeconds(5f);
+            spawnedItems.RemoveAll(item => item == null); // null 값 제거
 
-            // 현재 스폰된 아이템 중 null인 항목을 삭제하여 리스트 정리
-            spawnedItems.RemoveAll(item => item == null); 
-            // 사과(Apple) 아이템의 개수를 확인 (이름에 "Apple"이 포함된 오브젝트 카운트)
             int appleCount = spawnedItems.FindAll(item => item.name.Contains("Apple")).Count;
 
-            // 사과 개수가 설정된 최소 개수보다 적을 경우 추가 생성
             if (appleCount < minAppleCount)
             {
-                // 사과가 부족할 경우, 로그를 출력하고 필요한 개수만큼 사과를 추가로 생성
-                Debug.Log($"사과 개수가 부족합니다. {appleToRespawn}개 추가 생성합니다.");
+                Debug.Log($"사과가 부족합니다. {appleToRespawn}개 추가 생성.");
                 SpawnItemsByType(ItemType.APPLE, appleToRespawn);
             }
         }
     }
 
-    private Vector3 ReturnRandomPosition(GameObject prefab, Transform spawnTransform)
+    // 랜덤한 위치 반환
+    private Vector3 ReturnRandomPosition(GameObject prefab)
     {
         if (rangeObject.Count == 0)
-            return Vector3.zero; // 기본값 반환
+            return Vector3.zero;
 
-        // 무작위로 rangeObject에서 오브젝트 선택
         GameObject randomRangeObject = rangeObject[Random.Range(0, rangeObject.Count)];
-
-#region Pos, Scale을 사용한 랜덤 생성
-        // 오브젝트의 Transform을 기준으로 범위 계산 (localScale을 사용)
         Vector3 originPosition = randomRangeObject.transform.position;
         Vector3 scale = randomRangeObject.transform.localScale;
 
-        // X, Z 축 범위 내에서 랜덤 좌표 생성
         float randomX = Random.Range(-scale.x / 2, scale.x / 2);
         float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
-        
-        // Y축은 0으로 고정하고 X, Z 축에만 변화를 줌
         Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
 
-        // 최종 생성 위치 계산
-        Vector3 respawnPosition = originPosition + randomPosition;
-
-        return respawnPosition;
-#endregion
-
-#region BoxCollider를 사용한 랜덤생성
-        // Spawn Apple의 BoxCollider 가져오기
-        // BoxCollider rangeCollider = spawnTransform.GetComponent<BoxCollider>();
-
-        // if (rangeCollider == null)
-        // {
-        //     Debug.LogError($"'{spawnTransform.name}' 오브젝트에 BoxCollider가 없습니다.");
-        //     return spawnTransform.position; // Collider가 없어도 위치만 반환
-        // }
-
-        // Vector3 originPosition = spawnTransform.position;
-        // float range_X = rangeCollider.size.x * spawnTransform.localScale.x;
-        // float range_Z = rangeCollider.size.z * spawnTransform.localScale.z;
-
-        // // 랜덤 좌표 계산
-        // float randomX = Random.Range(-range_X / 2, range_X / 2);
-        // float randomZ = Random.Range(-range_Z / 2, range_Z / 2);
-        // Vector3 randomPosition = new Vector3(randomX, 0f, randomZ);
-
-        // Vector3 respawnPosition = originPosition + randomPosition;
-
-        // return respawnPosition;
-#endregion  
+        return originPosition + randomPosition;
     }
+
+//     private Vector3 ReturnRandomPosition(GameObject prefab, Transform spawnTransform)
+//     {
+//         if (rangeObject.Count == 0)
+//             return Vector3.zero; // 기본값 반환
+
+//         // 무작위로 rangeObject에서 오브젝트 선택
+//         GameObject randomRangeObject = rangeObject[Random.Range(0, rangeObject.Count)];
+
+// #region Pos, Scale을 사용한 랜덤 생성
+//         // 오브젝트의 Transform을 기준으로 범위 계산 (localScale을 사용)
+//         Vector3 originPosition = randomRangeObject.transform.position;
+//         Vector3 scale = randomRangeObject.transform.localScale;
+
+//         // X, Z 축 범위 내에서 랜덤 좌표 생성
+//         float randomX = Random.Range(-scale.x / 2, scale.x / 2);
+//         float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
+        
+//         // Y축은 0으로 고정하고 X, Z 축에만 변화를 줌
+//         Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
+
+//         // 최종 생성 위치 계산
+//         Vector3 respawnPosition = originPosition + randomPosition;
+
+//         return respawnPosition;
+// #endregion
+
+// #region BoxCollider를 사용한 랜덤생성
+//         // Spawn Apple의 BoxCollider 가져오기
+//         // BoxCollider rangeCollider = spawnTransform.GetComponent<BoxCollider>();
+
+//         // if (rangeCollider == null)
+//         // {
+//         //     Debug.LogError($"'{spawnTransform.name}' 오브젝트에 BoxCollider가 없습니다.");
+//         //     return spawnTransform.position; // Collider가 없어도 위치만 반환
+//         // }
+
+//         // Vector3 originPosition = spawnTransform.position;
+//         // float range_X = rangeCollider.size.x * spawnTransform.localScale.x;
+//         // float range_Z = rangeCollider.size.z * spawnTransform.localScale.z;
+
+//         // // 랜덤 좌표 계산
+//         // float randomX = Random.Range(-range_X / 2, range_X / 2);
+//         // float randomZ = Random.Range(-range_Z / 2, range_Z / 2);
+//         // Vector3 randomPosition = new Vector3(randomX, 0f, randomZ);
+
+//         // Vector3 respawnPosition = originPosition + randomPosition;
+
+//         // return respawnPosition;
+// #endregion  
+//     }
 }
