@@ -178,19 +178,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d10d8ce0541488dbad227655c03cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangeObject:
-  - {fileID: 0}
   items:
   - itemType: 0
     prefab: {fileID: 1093443242478543243, guid: 60f282b2fde15446c98ba08ca4dfecb6, type: 3}
+    poolSize: 500
   - itemType: 1
     prefab: {fileID: 2357376797576725488, guid: d0e7056c559d948dcbd4285267612238, type: 3}
+    poolSize: 20
   - itemType: 2
     prefab: {fileID: 7173908672501464601, guid: 9963f5271b732405896a7931e3aa41d9, type: 3}
-  initialAppleCount: 300
-  minAppleCount: 100
+    poolSize: 20
+  minAppleCount: 400
   appleToRespawn: 50
   spawnedItems: []
+  rangeObject:
+  - {fileID: 0}
 --- !u!1 &8676576513518001366
 GameObject:
   m_ObjectHideFlags: 0
