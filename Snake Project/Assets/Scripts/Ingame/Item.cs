@@ -13,8 +13,6 @@ public class Item : MonoBehaviour
         if (other.CompareTag("Snake Head")) // 플레이어와 충돌했는지 확인
         {
             ApplyItemEffect(other.gameObject); // 효과 적용
-            // other.gameObject.SetActive(false);
-            Destroy(gameObject); // 아이템을 사용 후 파괴
         }        
     }    
 
@@ -39,5 +37,8 @@ public class Item : MonoBehaviour
                     break;
             }
         }
+
+        // 아이템을 풀로 반환
+        PoolManager.Instance.ReturnToPool(gameObject);
     }
 }   

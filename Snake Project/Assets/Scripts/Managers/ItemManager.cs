@@ -89,10 +89,10 @@ public class ItemManager : MonoBehaviour
             if (spawnPosition != Vector3.zero)
             {
                 // 풀에서 아이템을 가져와서 사용
-                GameObject item = PoolManager.Instance.GetFromPool(itemData.prefab, spawnPosition, Quaternion.identity);
+                GameObject item = PoolManager.Instance.GetFromPool(itemData.prefab, spawnPosition, Quaternion.identity, spawnTransform);
 
                 // 스폰 트랜스폼의 자식으로 설정 (Spawn Apple 등의 하위 오브젝트로 생성)
-                item.transform.SetParent(spawnTransform, false);
+                item.transform.SetParent(spawnTransform, false); // 스폰 시에만 부모 설정
 
                 // 생성된 아이템을 리스트에 추가하여 관리
                 spawnedItems.Add(item);
