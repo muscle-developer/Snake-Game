@@ -72,8 +72,8 @@ public class SnakeManager : MonoBehaviour
         int index = Mathf.Clamp(BodyParts.Count * (int)gap, 0, PositionsHistory.Count - 1);
         Vector3 newPosition = PositionsHistory[index];
 
-        // 몸체 프리팹을 해당 위치에 인스턴스화하고, 첫 번째 몸체의 자식으로 설정
-        GameObject body = Instantiate(BodyPrefab, newPosition, Quaternion.identity, BodyParts[0].transform);
+        // 몸체 프리팹을 해당 위치에 인스턴스화하고, 첫 번째 몸체의 자식으로 설정 - 오브젝트 풀링
+        GameObject body = PoolManager.Instance.GetFromPool(BodyPrefab, newPosition, Quaternion.identity, BodyParts.Count > 0 ? BodyParts[0].transform : null);
 
         // 생성된 몸체를 BodyParts 리스트에 추가
         BodyParts.Add(body);
