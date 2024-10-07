@@ -7,6 +7,11 @@ public class SnakeHead : MonoBehaviour
     private Vector3 direction = Vector3.forward; // 현재 이동 방향
     private Vector3 targetDirection = Vector3.forward; // 목표 이동 방향
 
+    void Awake()
+    {
+        GameManager.Instance.player = transform;
+    }
+
     void Update()
     {
         // 조이스틱의 입력 방향을 가져오기
