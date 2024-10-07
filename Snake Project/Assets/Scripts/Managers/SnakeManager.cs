@@ -51,14 +51,6 @@ public class SnakeManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            AddBodyPart();
-        }
-    }
-
     public void AddBodyPart() 
     {
         // PositionsHistory가 비어 있는 경우 현재 위치를 히스토리에 추가
@@ -78,6 +70,33 @@ public class SnakeManager : MonoBehaviour
         // 생성된 몸체를 BodyParts 리스트에 추가
         BodyParts.Add(body);
     }
+
+    public void DestroySnake()
+    {
+        // 1. 머리 제거 (이 경우에는 PoolManager로 반환)
+        if (BodyParts.Count > 0)
+        {
+            GameObject head = BodyParts[0]; // BodyParts의 첫 번째 요소가 머리
+            PoolManager.Instance.ReturnToPool(head);
+            BodyParts.RemoveAt(0); // 리스트에서 머리 제거
+        }
+
+        // 2. 몸체 제거 (남은 몸체들도 PoolManager로 반환)
+        foreach (GameObject body in BodyParts)
+        {
+            PoolManager.Instance.ReturnToPool(body);
+        }
+
+        // 3. 몸체 목록 초기화
+        BodyParts.Clear();
+
+        // 4. PositionsHistory 초기화 (위치 기록 초기화)
+        PositionsHistory.Clear();
+
+        // 5. 게임 오버 처리
+        GameManager.Instance.GameOver();
+    }
+
 
     // 스피드 부스트 적용 함수
     public void ApplySpeedBoost(float boostAmount, float duration)
