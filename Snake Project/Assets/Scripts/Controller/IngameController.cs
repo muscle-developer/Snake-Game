@@ -11,6 +11,7 @@ public class IngameController : MonoBehaviour
     public VariableJoystick joystick;
     public UIJoystick uiJoystick;
     public GameObject snakeHeadPrefab; // SnakeHead 프리팹
+    public GameObject enemySnakePrefab; // Enemysnake 프리팹
 
     void Awake()
     {
@@ -20,11 +21,7 @@ public class IngameController : MonoBehaviour
     void Start()
     {
         InstantiateSnakeHead();
-        // SnakeManager.Instance.AddBodyPart();
-        // SnakeManager.Instance.AddBodyPart();
-        // SnakeManager.Instance.AddBodyPart();
-        // SnakeManager.Instance.AddBodyPart();
-        // SnakeManager.Instance.AddBodyPart();
+        InstantiateEnemySnakes(); // 적 스네이크 생성 메서드 호출
     }
 
     private void InstantiateSnakeHead()
@@ -40,6 +37,17 @@ public class IngameController : MonoBehaviour
 
         SnakeManager.Instance.BodyParts.Add(snakeHead); // SnakeHead를 BodyParts에 추가
         SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
+
+        // GameManager의 player 변수 설정
+        // GameManager.Instance.SetPlayer(snakeHead.transform);
     }
 
+    private void InstantiateEnemySnakes()
+    {
+        // 예시로 3개의 EnemySnake를 생성
+        for (int i = 0; i < 3; i++)
+        {
+            Instantiate(enemySnakePrefab, new Vector3(i * 2, 0, 0), Quaternion.identity);
+        }
+    }
 }
