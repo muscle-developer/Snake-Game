@@ -185,6 +185,7 @@ public class ItemManager : MonoBehaviour
         return originPosition + randomPosition;
     }
 
+#region Scale, Collider 사용한 랜덤생성
 //     private Vector3 ReturnRandomPosition(GameObject prefab, Transform spawnTransform)
 //     {
 //         if (rangeObject.Count == 0)
@@ -235,4 +236,5 @@ public class ItemManager : MonoBehaviour
 //         // return respawnPosition;
 // #endregion  
 //     }
+#endregion
 }
