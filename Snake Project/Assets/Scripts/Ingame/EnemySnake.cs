@@ -9,7 +9,7 @@ public class EnemySnake : MonoBehaviour
     public List<GameObject> bodyParts = new List<GameObject>(); // 적 스네이크의 몸체
     public List<Vector3> positionsHistory = new List<Vector3>(); // 위치 히스토리
     public float gap = 10f; // 몸체 간의 거리
-    public float bodySpeed = 3f; // 몸체가 따라오는 속도
+    public float bodySpeed = 5.0f; // 몸체가 따라오는 속도
     public float detectionRange = 15f; // 플레이어 탐지 범위
     public NavMeshAgent agent; // 적 스네이크의 NavMeshAgent
     [SerializeField]
