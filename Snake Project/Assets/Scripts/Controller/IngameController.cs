@@ -13,15 +13,25 @@ public class IngameController : MonoBehaviour
     public GameObject snakeHeadPrefab; // SnakeHead 프리팹
     public GameObject enemySnakePrefab; // Enemysnake 프리팹
 
+    public Vector2 spawnAreaSize; // 생성 영역 크기
+    public List<GameObject> rangeObject = new List<GameObject>(); // 적을 생성할 여러 개의 Floor 오브젝트들
+
     void Awake()
     {
         IngameController.Instance = this;
+
+        // "Floor" 태그를 가진 모든 오브젝트를 찾아 rangeObject 리스트에 추가
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
+        rangeObject.AddRange(floors);
+
+        // 리스트에서 null 값을 제거하여 유효한 오브젝트들만 남김
+        rangeObject.RemoveAll(item => item == null);
     }
 
     void Start()
     {
         InstantiateSnakeHead();
-        InstantiateEnemySnakes(); // 적 스네이크 생성 메서드 호출
+        InstantiateEnemySnakes(3); // 적 스네이크 생성 메서드 호출
     }
 
     private void InstantiateSnakeHead()
@@ -42,12 +52,37 @@ public class IngameController : MonoBehaviour
         // GameManager.Instance.SetPlayer(snakeHead.transform);
     }
 
-    private void InstantiateEnemySnakes()
+    // 여러 적을 랜덤한 위치에 생성
+    private void InstantiateEnemySnakes(int count)
     {
-        // 예시로 3개의 EnemySnake를 생성
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < count; i++)
         {
-            Instantiate(enemySnakePrefab, new Vector3(i * 2, 0, 0), Quaternion.identity);
+            // 랜덤한 위치 생성
+            Vector3 randomPosition = ReturnRandomPosition();
+
+            if (randomPosition != Vector3.zero)
+            {
+                GameObject enemySnake = Instantiate(enemySnakePrefab, randomPosition, Quaternion.identity, transform);
+                // 적에 필요한 초기화 코드 추가 가능
+            }
         }
+    }
+
+    // 랜덤한 위치를 반환하는 함수
+    private Vector3 ReturnRandomPosition()
+    {
+        if (rangeObject.Count == 0)
+            return Vector3.zero;
+
+        // 무작위로 rangeObject에서 오브젝트 선택
+        GameObject randomRangeObject = rangeObject[Random.Range(0, rangeObject.Count)];
+        Vector3 originPosition = randomRangeObject.transform.position;
+        Vector3 scale = randomRangeObject.transform.localScale;
+
+        float randomX = Random.Range(-scale.x / 2, scale.x / 2);
+        float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
+        Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
+
+        return originPosition + randomPosition;
     }
 }
