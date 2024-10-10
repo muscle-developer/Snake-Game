@@ -14,6 +14,9 @@ public class Item : MonoBehaviour
         {
             ApplyItemEffect(other.gameObject); // 효과 적용
         }        
+        else if(other.CompareTag("Enemy Snake"))
+        {
+        }
     }    
 
     // 아이템 효과 적용 로직

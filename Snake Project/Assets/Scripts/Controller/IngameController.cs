@@ -12,6 +12,7 @@ public class IngameController : MonoBehaviour
     public UIJoystick uiJoystick;
     public GameObject snakeHeadPrefab; // SnakeHead 프리팹
     public GameObject enemySnakePrefab; // Enemysnake 프리팹
+    public int enemySnakeCount = 3; // 적 뱀의 갯수
 
     public Vector2 spawnAreaSize; // 생성 영역 크기
     public List<GameObject> rangeObject = new List<GameObject>(); // 적을 생성할 여러 개의 Floor 오브젝트들
@@ -31,7 +32,7 @@ public class IngameController : MonoBehaviour
     void Start()
     {
         InstantiateSnakeHead();
-        InstantiateEnemySnakes(3); // 적 스네이크 생성 메서드 호출
+        InstantiateEnemySnakes(enemySnakeCount); // 적 스네이크 생성 메서드 호출
     }
 
     private void InstantiateSnakeHead()
@@ -64,11 +65,12 @@ public class IngameController : MonoBehaviour
             {
                 GameObject enemySnake = Instantiate(enemySnakePrefab, randomPosition, Quaternion.identity, transform);
                 // 적에 필요한 초기화 코드 추가 가능
+                EnemySnakeManager.Instance.InitializeEnemySnake(enemySnake); // EnemySnakeManager에 적 초기화
             }
         }
     }
 
-    // 랜덤한 위치를 반환하는 함수
+    // 적을 랜덤한 위치를 반환하는 함수
     private Vector3 ReturnRandomPosition()
     {
         if (rangeObject.Count == 0)
