@@ -15,7 +15,7 @@ public class SnakeManager : MonoBehaviour
     public float gap = 10f; // 몸체 간의 거리 (PositionsHistory 내에서의 인덱스 차이)
 
     // References
-    public GameObject BodyPrefab;
+    public GameObject bodyPrefab;
 
     // Lists
     public List<GameObject> BodyParts = new List<GameObject>(); // 스네이크 몸체 오브젝트들을 저장하는 리스트
@@ -65,7 +65,7 @@ public class SnakeManager : MonoBehaviour
         Vector3 newPosition = PositionsHistory[index];
 
         // 몸체 프리팹을 해당 위치에 인스턴스화하고, 첫 번째 몸체의 자식으로 설정 - 오브젝트 풀링
-        GameObject body = PoolManager.Instance.GetFromPool(BodyPrefab, newPosition, Quaternion.identity, BodyParts.Count > 0 ? BodyParts[0].transform : null);
+        GameObject body = PoolManager.Instance.GetFromPool(bodyPrefab, newPosition, Quaternion.identity, BodyParts.Count > 0 ? BodyParts[0].transform : null);
 
         // 생성된 몸체를 BodyParts 리스트에 추가
         BodyParts.Add(body);
