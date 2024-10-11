@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -21,6 +19,7 @@ public class SnakeCanvas : MonoBehaviour
         LookAtCamera(); // 텍스트가 항상 카메라를 바라보도록 함
     }
     
+    // 적 스네이크의 레벨을 받아오기 위해(적은 n개의 몸통을 가지고 시작하기때문)
     public void SetLevel(int initialLevel)
     {
         level = initialLevel;
