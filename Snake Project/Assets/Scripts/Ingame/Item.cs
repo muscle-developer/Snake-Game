@@ -33,7 +33,7 @@ public class Item : MonoBehaviour
             {
                 case ItemManager.ItemType.APPLE:
                     snakeManager.AddBodyPart(); // 사과는 몸체 추가
-                    snake.GetComponentInChildren<PlayerCanvas>().LevelUp(); // 레벨업 호출
+                    snake.GetComponentInChildren<SnakeCanvas>().LevelUp(); // 레벨업 호출
                     break;
                 case ItemManager.ItemType.SPEED:
                     snakeManager.ApplySpeedBoost(5f, 5f); // 스피드 부스트
@@ -50,6 +50,7 @@ public class Item : MonoBehaviour
             if (enemySnake != null && itemtype == ItemManager.ItemType.APPLE)
             {
                 enemySnake.AddBodyPart(); // 적 스네이크 몸체 추가
+                snake.GetComponentInChildren<SnakeCanvas>().LevelUp();
             }
         }
 

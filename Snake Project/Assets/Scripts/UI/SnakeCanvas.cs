@@ -6,20 +6,25 @@ using TMPro;
 public class SnakeCanvas : MonoBehaviour
 {   
     [SerializeField]
-    private TMP_Text levelText;
-    private int level; // 플레이어 레벨
+    private TMP_Text levelText; // 텍스트 컴포넌트
+    private int level = 0; // 초기 레벨 설정
     private Camera mainCamera;
 
     void Start()
     {
-        level = 0; // 초기 레벨 설정
         mainCamera = Camera.main; // 메인 카메라를 찾음
-        UpdateLevelText();
+        UpdateLevelText(); // 초기 텍스트 설정
     }
 
     void Update()
     {
-        LookAtCamera(); // 매 프레임마다 텍스트가 카메라를 바라보도록 함
+        LookAtCamera(); // 텍스트가 항상 카메라를 바라보도록 함
+    }
+    
+    public void SetLevel(int initialLevel)
+    {
+        level = initialLevel;
+        UpdateLevelText();
     }
 
     public void LevelUp()
