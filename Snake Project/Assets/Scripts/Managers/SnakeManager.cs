@@ -119,56 +119,70 @@ public class SnakeManager : MonoBehaviour
         speedBoostCoroutine = StartCoroutine(ResetSpeedAfterDuration(boostAmount, duration));
     }
 
+    // 일정 시간이 지나면 스피드를 원래대로 복구하는 함수
     IEnumerator ResetSpeedAfterDuration(float boostAmount, float duration)
     {
+        // 부스트 지속시간을 기다림
         yield return new WaitForSeconds(duration);
+        
+        // 부스트 전의 속도로 복구
         snkaeSpeed -= boostAmount;
         bodySpeed -= boostAmount;
-        StartCoroutine(SmoothGapChange(10f, 1f)); // 원래 값으로 부드럽게 gap을 늘림
+        
+        // 속도가 복구될 때 간격을 부드럽게 원래대로 되돌림
+        StartCoroutine(SmoothGapChange(10f, 1f)); 
     }
 
+    // 간격을 부드럽게 조정하는 함수
     IEnumerator SmoothGapChange(float targetGap, float smoothTime)
     {
-        float currentGap = gap;
-        float elapsedTime = 0f;
+        float currentGap = gap; // 현재 간격
+        float elapsedTime = 0f; // 경과 시간
 
+        // smoothTime 동안 간격을 천천히 목표 값으로 변경
         while (elapsedTime < smoothTime)
         {
-            gap = Mathf.Lerp(currentGap, targetGap, elapsedTime / smoothTime);
-            elapsedTime += Time.deltaTime;
+            gap = Mathf.Lerp(currentGap, targetGap, elapsedTime / smoothTime); // 부드럽게 간격 변경
+            elapsedTime += Time.deltaTime; // 경과 시간 증가
             yield return null;
         }
 
+        // 최종적으로 간격을 목표 값으로 설정
         gap = targetGap;
     }
 
-    // 자석 효과 활성화 함수
+    // 자석 효과를 활성화하는 함수
     public void ActivateMagnet(float duration)
     {
-        StopCoroutine(DeactivateMagnetAfterDuration(duration)); // 이미 실행 중인 코루틴 중지
-        isMagnetActive = true;
-        StartCoroutine(DeactivateMagnetAfterDuration(duration));
+        // 이미 실행 중인 자석 비활성화 코루틴이 있으면 중지
+        StopCoroutine(DeactivateMagnetAfterDuration(duration)); 
+        isMagnetActive = true; // 자석 활성화 상태로 변경
+        StartCoroutine(DeactivateMagnetAfterDuration(duration)); // 지속 시간 후 자석 비활성화 코루틴 실행
     }
 
+    // 일정 시간이 지나면 자석 효과를 비활성화하는 함수
     IEnumerator DeactivateMagnetAfterDuration(float duration)
     {
+        // 자석 지속시간을 기다림
         yield return new WaitForSeconds(duration);
-        isMagnetActive = false;
+        isMagnetActive = false; // 자석 효과 비활성화
     }
 
     // 자석 범위 내의 아이템들을 스네이크 쪽으로 끌어당기는 함수
     public void AttractItems()
     {
-        // 일정 범위 내의 모든 아이템 탐지
+        // 플레이어의 위치를 중심으로 일정 범위 내의 모든 아이템 탐지
         Collider[] hitColliders = Physics.OverlapSphere(GameManager.Instance.player.transform.position, magnetRange);
 
+        // 탐지된 각 아이템에 대해 처리
         foreach (var hitCollider in hitColliders)
         {
+            // 사과 아이템인 경우
             if (hitCollider.CompareTag("Apple"))
             {
-                // 아이템을 스네이크 쪽으로 이동
+                // 아이템을 스네이크 쪽으로 이동시킴
                 Vector3 direction = (GameManager.Instance.player.transform.position - hitCollider.transform.position).normalized;
-                hitCollider.transform.position += direction * magnetPullSpeed * Time.deltaTime;
+                hitCollider.transform.position += direction * magnetPullSpeed * Time.deltaTime; // 자석 속도로 아이템 이동
             }
         }
     }
