@@ -84,7 +84,7 @@ MonoBehaviour:
   rotationSpeed: 300
   bodySpeed: 5
   gap: 10
-  bodyPrefab: {fileID: 0}
+  bodyPrefab: {fileID: 2013645530069422924, guid: 1aaadea5aad1d41abb3a151c49a178d8, type: 3}
   BodyParts: []
   PositionsHistory: []
   isMagnetActive: 0
