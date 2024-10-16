@@ -42,7 +42,7 @@ public class Item : MonoBehaviour
             {
                 case ItemManager.ItemType.APPLE:
                     snakeManager.AddBodyPart(); // 사과는 플레이어 몸체 추가
-                    snake.GetComponentInChildren<SnakeCanvas>().LevelUp(); // 레벨업 UI 업데이트
+                    IngameController.Instance.uiViewFloatingHUD.PlayerLevelUp(); // 레벨업 UI 업데이트
                     break;
                 case ItemManager.ItemType.SPEED:
                     snakeManager.ApplySpeedBoost(5f, 5f); // 스피드 부스트 효과 적용
@@ -60,7 +60,7 @@ public class Item : MonoBehaviour
             if (enemySnake != null && itemtype == ItemManager.ItemType.APPLE)
             {
                 enemySnake.AddBodyPart(); // 적 스네이크 몸체 추가
-                snake.GetComponentInChildren<SnakeCanvas>().LevelUp(); // 적 스네이크 레벨업 UI 업데이트
+                IngameController.Instance.uiViewFloatingHUD.EnemyLevelUp(); // 적 스네이크 레벨업 UI 업데이트
             }
         }
 
