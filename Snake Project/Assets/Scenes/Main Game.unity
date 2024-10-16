@@ -150,6 +150,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6abb737e7756e482aa2dee759a0bfc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &10626821 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4293700534635335731, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
+  m_PrefabInstance: {fileID: 1501822739}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a53036ec72c4c77bf3172f7bde7a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &10876804 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5883889861025670928, guid: 4cdb9e4cc44124c568db0bcaa4dd2b64, type: 3}
@@ -4302,13 +4313,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5329dff69353474a90c8cde4d21826f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystick: {fileID: 1953706129}
-  uiJoystick: {fileID: 1158159358}
   snakeHeadPrefab: {fileID: 8022336123161859619, guid: 619c131ff68cb48adbc60867e42d936a, type: 3}
   enemySnakePrefab: {fileID: 207746939443604433, guid: 50819bc0d8d7c435c9bda5092a84be70, type: 3}
   enemySnakeCount: 3
   spawnAreaSize: {x: 0, y: 0}
   rangeObject: []
+  joystick: {fileID: 1953706129}
+  uiJoystick: {fileID: 1158159358}
+  uiViewFloatingHUD: {fileID: 10626821}
+  floatingLevelPrefab: {fileID: 1982093988397940904, guid: 1ad9af8e11cca426a810d0a9a09cb79d, type: 3}
 --- !u!114 &1158159358 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6800509168502000908, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
