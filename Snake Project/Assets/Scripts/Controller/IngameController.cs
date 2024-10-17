@@ -56,7 +56,7 @@ public class IngameController : MonoBehaviour
         SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
 
         // 플레이어 HUD 생성 및 연결
-        CreateHUD(snakeHead.transform, 1, true);
+        CreateHUD(snakeHead.transform, 0, true);
     }
 
     // 여러 적을 랜덤한 위치에 생성

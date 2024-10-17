@@ -21,6 +21,9 @@ public class FloatingHUDLevel : MonoBehaviour
 
     void LateUpdate()
     {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
         if (followTarget != null && isFollowing)
         {
             // 월드 위치 계산
@@ -28,9 +31,6 @@ public class FloatingHUDLevel : MonoBehaviour
             transform.position = targetPosition;
             transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up); // 카메라를 바라보도록 설정 (UI가 카메라를 바라보게 함)
         }
-
-        // if (mainCamera == null)
-        //     mainCamera = Camera.main;
 
         // if (followTarget != null && isFollowing)
         // {
