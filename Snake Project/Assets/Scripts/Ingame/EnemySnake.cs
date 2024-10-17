@@ -26,7 +26,7 @@ public class EnemySnake : MonoBehaviour
         InitializeBodyParts();
 
         // 적 스네이크의 레벨 초기화(-1 하는 이유는 머리의 갯수는 빠져야하기때문)
-        IngameController.Instance.uiViewFloatingHUD.SetEnemyLevel(bodyParts.Count);
+        // IngameController.Instance.uiViewFloatingHUD.SetEnemyLevel(bodyParts.Count);
     }
 
     // 몸체 추가 초기화 함수
