@@ -56,12 +56,7 @@ public class IngameController : MonoBehaviour
         SnakeManager.Instance.PositionsHistory.Add(snakeHead.transform.position); // SnakeHead의 위치를 PositionsHistory에 추가
 
         // 플레이어 HUD 생성 및 연결
-        GameObject floatingHUD = Instantiate(floatingLevelPrefab, transform.position, transform.rotation, uiViewFloatingHUD.levelParent); // HUD 프리팹을 생성
-        UIViewFloatingHUD snakeCanvas = floatingHUD.GetComponent<UIViewFloatingHUD>(); // 새로 생성된 HUD 오브젝트에서 UIViewFloatingHUD 컴포넌트 가져오기
-        if (snakeCanvas != null)
-        {
-            snakeCanvas.Initialize(snakeHead.transform, 1, true); // 플레이어 Transform과 초기 레벨 전달
-        }
+        CreateHUD(snakeHead.transform, 1, true);
     }
 
     // 여러 적을 랜덤한 위치에 생성
@@ -79,13 +74,20 @@ public class IngameController : MonoBehaviour
                 EnemySnakeManager.Instance.InitializeEnemySnake(enemySnake); // EnemySnakeManager에 적 초기화
 
                 // 적의 HUD 캔버스를 생성하고 스네이크와 연결
-                GameObject floatingHUD = Instantiate(floatingLevelPrefab, transform.position, transform.rotation, uiViewFloatingHUD.levelParent); // HUD 프리팹을 생성
-                UIViewFloatingHUD snakeCanvas = floatingHUD.GetComponent<UIViewFloatingHUD>();
-                if (snakeCanvas != null)
-                {
-                    snakeCanvas.Initialize(enemySnake.transform, 1); // 적 스네이크의 Transform과 초기 레벨 전달
-                }
+                CreateHUD(enemySnake.transform, 3, false);
             }
+        }
+    }
+
+    // HUD를 생성하는 메서드
+    private void CreateHUD(Transform snakeTransform, int initialLevel, bool isPlayer = false)
+    {
+        // GameObject floatingHUD = Instantiate(floatingLevelPrefab, transform.position, transform.rotation, uiViewFloatingHUD.levelParent); // HUD 프리팹을 생성
+        // UIViewFloatingHUD snakeCanvas = floatingHUD.GetComponent<UIViewFloatingHUD>(); // 새로 생성된 HUD 오브젝트에서 UIViewFloatingHUD 컴포넌트 가져오기
+        var snakeCanvas = uiViewFloatingHUD;
+        if (snakeCanvas != null)
+        {
+            snakeCanvas.Initialize(snakeTransform, initialLevel, isPlayer); // Transform과 초기 레벨 전달
         }
     }
 
