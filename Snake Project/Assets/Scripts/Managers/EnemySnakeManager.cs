@@ -44,4 +44,10 @@ public class EnemySnakeManager : MonoBehaviour
         enemySnakes.Remove(enemySnake);
         Destroy(enemySnake.gameObject);
     }
+
+    // 여러개의 적중 몇번의 적인지 체크하기 위해(몇번의 적인지 알아야 사과를 먹었을 때 그 적의 레벨을 올려줌)
+    public int GetEnemyIndex(EnemySnake enemySnake)
+    {
+        return enemySnakes.IndexOf(enemySnake);
+    }
 }
