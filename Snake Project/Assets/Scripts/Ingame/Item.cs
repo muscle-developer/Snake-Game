@@ -60,7 +60,9 @@ public class Item : MonoBehaviour
             if (enemySnake != null && itemtype == ItemManager.ItemType.APPLE)
             {
                 enemySnake.AddBodyPart(); // 적 스네이크 몸체 추가
-                IngameController.Instance.uiViewFloatingHUD.EnemyLevelUp(); // 적 스네이크 레벨업 UI 업데이트
+                // 적 스네이크의 레벨업 UI 업데이트
+                int enemyIndex = enemySnakeManager.GetEnemyIndex(enemySnake); // 적 스네이크의 인덱스 가져오기
+                IngameController.Instance.uiViewFloatingHUD.EnemyLevelUp(enemyIndex); // 특정 적의 레벨업 UI 업데이트
             }
         }
 
