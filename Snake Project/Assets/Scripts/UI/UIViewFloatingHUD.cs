@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class UIViewFloatingHUD : MonoBehaviour
 {
@@ -6,8 +7,8 @@ public class UIViewFloatingHUD : MonoBehaviour
     private GameObject levelTextPrefab; // 레벨 텍스트 프리팹
     public Transform levelParent; // HUD가 위치할 부모
 
-    private FloatingHUDLevel playerHUD;
-    private FloatingHUDLevel enemyHUD;
+    private List<FloatingHUDLevel> playerHUDs = new List<FloatingHUDLevel>(); // 플레이어 HUD 리스트
+    private List<FloatingHUDLevel> enemyHUDs = new List<FloatingHUDLevel>(); // 적 HUD 리스트
 
     public void Initialize(Transform snakeTransform, int initialLevel, bool isPlayer = false)
     {
@@ -21,33 +22,36 @@ public class UIViewFloatingHUD : MonoBehaviour
         {
             // HUD 초기화
             floatingHUD.Init(snakeTransform, true, isPlayer, initialLevel);
-            
+
             if (isPlayer)
             {
-                playerHUD = floatingHUD; // 플레이어 HUD 저장
+                playerHUDs.Add(floatingHUD); // 플레이어 HUD 리스트에 추가
             }
             else
             {
-                enemyHUD = floatingHUD; // 적 HUD 저장
+                enemyHUDs.Add(floatingHUD); // 적 HUD 리스트에 추가
             }
         }
     }
 
-    // 플레이어 레벨업 메서드
+    // 모든 플레이어 HUD를 레벨업하는 메서드
     public void PlayerLevelUp()
     {
-        if (playerHUD != null)
+        foreach (var playerHUD in playerHUDs)
         {
-            playerHUD.LevelUp(); // 플레이어 레벨업 호출
+            if (playerHUD != null)
+            {
+                playerHUD.LevelUp(); // 플레이어 레벨업 호출
+            }
         }
     }
 
-    // 적 레벨업 메서드
-    public void EnemyLevelUp()
+    // 특정 적의 레벨을 올리는 메서드 (인덱스 사용)
+    public void EnemyLevelUp(int index)
     {
-        if (enemyHUD != null)
+        if (index >= 0 && index < enemyHUDs.Count)
         {
-            enemyHUD.LevelUp(); // 적 레벨업 호출
+            enemyHUDs[index].LevelUp(); // 해당 인덱스의 적 레벨업 호출
         }
     }
 }
