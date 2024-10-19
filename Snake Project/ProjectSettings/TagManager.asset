@@ -12,6 +12,8 @@ TagManager:
   - Magnet
   - Sanek Body
   - Snake Head
+  - Enemy Snake
+  - Enemy Snake Body
   layers:
   - Default
   - TransparentFX
