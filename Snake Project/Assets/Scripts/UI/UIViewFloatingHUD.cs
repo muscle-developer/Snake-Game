@@ -34,7 +34,7 @@ public class UIViewFloatingHUD : MonoBehaviour
         }
     }
 
-    // 모든 플레이어 HUD를 레벨업하는 메서드
+    // 플레이어 HUD를 레벨업하는 메서드
     public void PlayerLevelUp()
     {
         foreach (var playerHUD in playerHUDs)
