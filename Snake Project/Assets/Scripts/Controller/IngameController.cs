@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 // 개별 객체 제어: 특정 객체나 캐릭터의 행동과 동작을 제어합니다.
@@ -82,8 +81,6 @@ public class IngameController : MonoBehaviour
     // HUD를 생성하는 메서드
     private void CreateHUD(Transform snakeTransform, int initialLevel, bool isPlayer = false)
     {
-        // GameObject floatingHUD = Instantiate(floatingLevelPrefab, transform.position, transform.rotation, uiViewFloatingHUD.levelParent); // HUD 프리팹을 생성
-        // UIViewFloatingHUD snakeCanvas = floatingHUD.GetComponent<UIViewFloatingHUD>(); // 새로 생성된 HUD 오브젝트에서 UIViewFloatingHUD 컴포넌트 가져오기
         var snakeCanvas = uiViewFloatingHUD;
         if (snakeCanvas != null)
         {
