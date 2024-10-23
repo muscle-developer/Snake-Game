@@ -86,4 +86,26 @@ public class SnakeHead : MonoBehaviour
     {
         isMoveInputExist = newIsMoveInputExistState;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Enemy Snake"))
+        {
+            int playerLevel = SnakeManager.Instance.BodyParts.Count;
+            EnemySnake enemySnake = other.GetComponent<EnemySnake>();
+            int enemyLevel = enemySnake.bodyParts.Count; // 적 스네이크 레벨
+
+            // 적 스네이크 레벨이 더 높은 경우
+            if (enemyLevel > playerLevel)
+                // 플레이어 사망 처리
+                SnakeManager.Instance.DestroySnake();
+        }
+        if(other.CompareTag("Enemy Snake Body"))
+        {
+            SnakeManager.Instance.AddBodyPart();   
+
+            // 적의 몸체를 풀로 반환
+            PoolManager.Instance.ReturnToPool(other.gameObject);
+        }
+    }
 }
