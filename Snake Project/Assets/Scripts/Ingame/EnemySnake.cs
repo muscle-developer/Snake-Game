@@ -121,16 +121,20 @@ public class EnemySnake : MonoBehaviour
     // 적 스네이크가 죽을 때 몸통을 생성하는 함수
     private void SpawnBodyPartsOnDeath()
     {
-        // 몸통의 생성 간격
-        float spawnOffset = 1.5f;
+        // 몸통을 생성할 반경
+        float spawnRadius = 2.0f;
 
         // 적 스네이크의 몸통 개수만큼 반복
         for (int i = 0; i < bodyParts.Count; i++)
         {
-            // 몸통을 생성할 위치를 적의 현재 위치와 약간의 오프셋을 주어 설정
-            Vector3 spawnPosition = transform.position - transform.forward * (i * spawnOffset);
+            // 무작위 위치 생성
+            Vector3 randomOffset = Random.insideUnitSphere * spawnRadius;
+            randomOffset.y = 0; // 평면상에서만 위치를 변경하도록 Y축은 0으로 고정
 
-            // 새 몸통을 풀에서 가져와 생성
+            // 무작위로 생성될 위치 계산
+            Vector3 spawnPosition = transform.position + randomOffset;
+
+            // 새 몸통을 풀에서 가져와 무작위 위치에 생성
             GameObject newBodyPart = PoolManager.Instance.GetFromPool(enemySnakeManager.enemyBodyPrefab, spawnPosition, Quaternion.identity);
         }
     }
