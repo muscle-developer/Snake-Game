@@ -13,6 +13,9 @@ public class EnemySnake : MonoBehaviour
     public List<Vector3> positionsHistory = new List<Vector3>(); 
     public List<GameObject> bodyParts = new List<GameObject>();
 
+    // 적 스네이크 레벨
+    public int level;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -21,6 +24,9 @@ public class EnemySnake : MonoBehaviour
         
         // 첫 위치 히스토리 추가
         positionsHistory.Add(transform.position);
+
+        // 적 스네이크 초기화 시 레벨 설정
+        level = bodyParts.Count;
         
         // 적 스네이크 초기화에서 몸체 추가를 호출
         InitializeBodyParts();
@@ -108,6 +114,43 @@ public class EnemySnake : MonoBehaviour
             {
                 Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                 bodyParts[i].transform.rotation = Quaternion.Slerp(bodyParts[i].transform.rotation, targetRotation, enemySnakeManager.bodySpeed * Time.deltaTime);
+            }
+        }
+    }
+
+    // 적 스네이크가 죽을 때 몸통을 생성하는 함수
+    private void SpawnBodyPartsOnDeath()
+    {
+        // 몸통의 생성 간격
+        float spawnOffset = 1.5f;
+
+        // 적 스네이크의 몸통 개수만큼 반복
+        for (int i = 0; i < bodyParts.Count; i++)
+        {
+            // 몸통을 생성할 위치를 적의 현재 위치와 약간의 오프셋을 주어 설정
+            Vector3 spawnPosition = transform.position - transform.forward * (i * spawnOffset);
+
+            // 새 몸통을 풀에서 가져와 생성
+            GameObject newBodyPart = PoolManager.Instance.GetFromPool(enemySnakeManager.enemyBodyPrefab, spawnPosition, Quaternion.identity);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Snake Head"))
+        {
+            // 플레이어의 레벨을 가져옴
+            int playerLevel = SnakeManager.Instance.BodyParts.Count;
+            int enemyLevel = level;
+
+            // 플레이어 레벨과 적 스네이크 레벨 비교
+            if (playerLevel > enemyLevel)
+            {
+                // 플레이어의 레벨이 더 높으면 적 스네이크 제거
+                enemySnakeManager.DestroyEnemySnake(this);
+
+                // 죽은 자리에 몸통 생성
+                SpawnBodyPartsOnDeath();
             }
         }
     }
