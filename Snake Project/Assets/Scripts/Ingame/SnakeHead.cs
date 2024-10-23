@@ -103,9 +103,12 @@ public class SnakeHead : MonoBehaviour
         if(other.CompareTag("Enemy Snake Body"))
         {
             SnakeManager.Instance.AddBodyPart();   
+            IngameController.Instance.uiViewFloatingHUD.PlayerLevelUp(); // 레벨업 UI 업데이트
 
             // 적의 몸체를 풀로 반환
             PoolManager.Instance.ReturnToPool(other.gameObject);
+
+            IngameController.Instance.RemoveEnemySnake(other.gameObject);
         }
     }
 }
