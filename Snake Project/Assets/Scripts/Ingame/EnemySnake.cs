@@ -119,7 +119,7 @@ public class EnemySnake : MonoBehaviour
     }
 
     // 적 스네이크가 죽을 때 몸통을 생성하는 함수
-    private void SpawnBodyPartsOnDeath()
+    public void SpawnBodyPartsOnDeath()
     {
         // 몸통을 생성할 반경
         float spawnRadius = 2.0f;
@@ -139,23 +139,26 @@ public class EnemySnake : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Snake Head"))
-        {
-            // 플레이어의 레벨을 가져옴
-            int playerLevel = SnakeManager.Instance.BodyParts.Count;
-            int enemyLevel = level;
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Snake Head"))
+    //     {
+    //         // 플레이어의 레벨을 가져옴
+    //         int playerLevel = SnakeManager.Instance.BodyParts.Count;
+    //         int enemyLevel = level;
 
-            // 플레이어 레벨과 적 스네이크 레벨 비교
-            if (playerLevel > enemyLevel)
-            {
-                // 플레이어의 레벨이 더 높으면 적 스네이크 제거
-                enemySnakeManager.DestroyEnemySnake(this);
+    //         // 플레이어 레벨과 적 스네이크 레벨 비교
+    //         if (playerLevel > enemyLevel)
+    //         {
+    //             // Transform playerTransform = other.transform.root; // 적의 머리나 몸체의 부모 트랜스폼을 가져옴
+    //             IngameController.Instance.RemoveHUD(other.gameObject);
 
-                // 죽은 자리에 몸통 생성
-                SpawnBodyPartsOnDeath();
-            }
-        }
-    }
+    //             // 플레이어의 레벨이 더 높으면 적 스네이크 제거
+    //             enemySnakeManager.DestroyEnemySnake(this);
+
+    //             // 죽은 자리에 몸통 생성
+    //             SpawnBodyPartsOnDeath();
+    //         }
+    //     }
+    // }
 }
