@@ -6,6 +6,7 @@ public class FloatingHUDLevel : MonoBehaviour
 {
     [SerializeField]
     private Transform followTarget; // 따라갈 타겟
+    public Transform FollowTarget => followTarget;
     [SerializeField]
     private TMP_Text levelText; // 레벨 텍스트
     [SerializeField]
@@ -50,7 +51,7 @@ public class FloatingHUDLevel : MonoBehaviour
     }
 
     // HUD 초기화
-    public void Init(Transform target, bool isFollowing, bool isPlayer, int initialLevel)
+    public void Init(Transform target, bool isPlayer, int initialLevel, bool isFollowing)
     {
         this.followTarget = target;
         this.isFollowing = isFollowing;
@@ -70,5 +71,14 @@ public class FloatingHUDLevel : MonoBehaviour
     {
         currentLevel++;
         levelText.text = $"Lv. {currentLevel}";
+    }
+
+    // 스네이크가 죽었을 때 레벨 텍스트 없애기
+    public void DestroyHUD()
+    {
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 }

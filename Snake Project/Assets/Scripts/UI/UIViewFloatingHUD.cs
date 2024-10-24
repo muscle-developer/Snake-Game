@@ -10,18 +10,23 @@ public class UIViewFloatingHUD : MonoBehaviour
     private List<FloatingHUDLevel> playerHUDs = new List<FloatingHUDLevel>(); // 플레이어 HUD 리스트
     private List<FloatingHUDLevel> enemyHUDs = new List<FloatingHUDLevel>(); // 적 HUD 리스트
 
+    [SerializeField]
+    private bool HUDFollowing;
+
     public void Initialize(Transform snakeTransform, int initialLevel, bool isPlayer = false)
     {
         // HUD 인스턴스 생성
         GameObject newHUD = Instantiate(levelTextPrefab, levelParent);
+        newHUD.name = snakeTransform.name; // 스네이크 이름 설정
 
         // FloatingHUDLevel 컴포넌트 가져오기
         FloatingHUDLevel floatingHUD = newHUD.GetComponent<FloatingHUDLevel>();
 
         if (floatingHUD != null)
         {
+            HUDFollowing = true;
             // HUD 초기화
-            floatingHUD.Init(snakeTransform, true, isPlayer, initialLevel);
+            floatingHUD.Init(snakeTransform, isPlayer, initialLevel, HUDFollowing);
 
             if (isPlayer)
             {
@@ -31,6 +36,22 @@ public class UIViewFloatingHUD : MonoBehaviour
             {
                 enemyHUDs.Add(floatingHUD); // 적 HUD 리스트에 추가
             }
+        }
+    }
+
+    public void RemoveSnakeHUD(Transform enemyTransform)
+    {
+        if (enemyTransform == null)
+        {
+            Debug.LogWarning("enemyTransform is already destroyed.");
+            return;
+        }
+
+        FloatingHUDLevel hudToRemove = enemyHUDs.Find(hud => hud.name == enemyTransform.name);
+        if (hudToRemove != null)
+        {
+            hudToRemove.DestroyHUD();
+            enemyHUDs.Remove(hudToRemove);
         }
     }
 
