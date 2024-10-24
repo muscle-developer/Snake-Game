@@ -95,10 +95,21 @@ public class SnakeHead : MonoBehaviour
             EnemySnake enemySnake = other.GetComponent<EnemySnake>();
             int enemyLevel = enemySnake.bodyParts.Count; // 적 스네이크 레벨
 
-            // 적 스네이크 레벨이 더 높은 경우
-            if (enemyLevel > playerLevel)
-                // 플레이어 사망 처리
+            // 플레이어 레벨이 더 높은 경우
+            if (playerLevel > enemyLevel)
+            {
+                // 적의 HUD 제거
+                IngameController.Instance.RemoveHUD(other.gameObject);
+                // 플레이어의 레벨이 더 높으면 적 스네이크 제거
+                EnemySnakeManager.Instance.DestroyEnemySnake(enemySnake);
+                // 죽은 자리에 몸통 생성
+                enemySnake.SpawnBodyPartsOnDeath();
+            }
+            // 적 레벨이 더 높은 경우
+            else
+            {
                 SnakeManager.Instance.DestroySnake();
+            }
         }
         if(other.CompareTag("Enemy Snake Body"))
         {
@@ -107,8 +118,6 @@ public class SnakeHead : MonoBehaviour
 
             // 적의 몸체를 풀로 반환
             PoolManager.Instance.ReturnToPool(other.gameObject);
-
-            IngameController.Instance.RemoveEnemySnake(other.gameObject);
         }
     }
 }
