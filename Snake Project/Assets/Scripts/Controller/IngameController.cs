@@ -20,7 +20,6 @@ public class IngameController : MonoBehaviour
     public VariableJoystick joystick;
     public UIJoystick uiJoystick;
     public UIViewFloatingHUD uiViewFloatingHUD;
-    public GameObject floatingLevelPrefab;
 
     void Awake()
     {
@@ -69,6 +68,7 @@ public class IngameController : MonoBehaviour
             if (randomPosition != Vector3.zero)
             {
                 GameObject enemySnake = Instantiate(enemySnakePrefab, randomPosition, Quaternion.identity, transform);
+                enemySnake.name = $"EnemySnake_{i}"; // 스네이크 이름 설정
                 // 적에 필요한 초기화 코드 추가 가능
                 EnemySnakeManager.Instance.InitializeEnemySnake(enemySnake); // EnemySnakeManager에 적 초기화
 
@@ -86,6 +86,13 @@ public class IngameController : MonoBehaviour
         {
             snakeCanvas.Initialize(snakeTransform, initialLevel, isPlayer); // Transform과 초기 레벨 전달
         }
+    }
+
+    // HUD를 삭제하는 메서드
+    public void RemoveHUD(GameObject snakeTransform)
+    {
+        // 적 스네이크 삭제 전에 HUD도 삭제
+        uiViewFloatingHUD.RemoveSnakeHUD(snakeTransform.transform);
     }
 
     // 적을 랜덤한 위치를 반환하는 함수
