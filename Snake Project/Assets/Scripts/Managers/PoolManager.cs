@@ -40,14 +40,14 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    // 풀에서 오브젝트 가져오기
+    // 풀에서 오브젝트 가져오기 (풀 매니저 -> 오브젝트)
     public GameObject GetFromPool(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
     {
-        // 프리팹 이름을 통해 딕셔너리에서 찾음
+        // 프리팹 이름을 통해 딕셔너리에서 풀을 찾음
         string prefabName = prefab.name;
         GameObject itemObj;
 
-        // 만약 풀에 해당 프리팹의 오브젝트가 남아 있으면 가져옴
+        // 풀에 해당 프리팹의 오브젝트가 남아 있으면 가져옴
         if (poolDictionary.ContainsKey(prefabName) && poolDictionary[prefabName].Count > 0)
         {
             itemObj = poolDictionary[prefabName].Dequeue(); // 큐에서 오브젝트 제거
@@ -71,7 +71,7 @@ public class PoolManager : MonoBehaviour
         return itemObj; // 오브젝트 반환
     }
 
-    // 오브젝트를 풀로 반환하기
+    // 오브젝트를 풀로 반환하기 (오브젝트 -> 풀 매니저)
     public void ReturnToPool(GameObject itemObj)
     {
         // 오브젝트 비활성화
@@ -83,7 +83,7 @@ public class PoolManager : MonoBehaviour
         // 해당 프리팹 이름에 해당하는 풀이 있으면
         if (poolDictionary.ContainsKey(prefabName))
         {
-            // 'Spawn Area'라는 오브젝트를 찾아 반환할 아이템의 부모로 설정
+            // 'Spawn Area'라는 오브젝트를 찾아 반환할 오브젝트의 부모로 설정
             GameObject spawnArea = GameObject.Find("Spawn Area");
 
             if (spawnArea != null)
