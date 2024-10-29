@@ -1,39 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public Transform player;
 
+    [Header("게임 관련")]
+    public bool isLive;
+    
+    // 게임 시간 (초)
+    private float gameTime = 30;
+    // 남은 게임 시간 텍스트
+    [SerializeField]
+    private TMP_Text timeText;
+
+    // 플레이어 닉네임
+    private string nickname = null;
+    // 플레이어 닉네임 텍스트
+    [SerializeField]
+    private TMP_Text nickNameText;
+
     public void Awake()
     {
         GameManager.Instance = this;
     }
 
-    // 게임 시작 시 SnakeHead를 생성하고 있는데,
-    // GameManager에서 player 변수가 올바르게 설정되지 않는 문제는 SnakeHead가 Awake()에서 GameManager.Instance.player에 할당되기 전에 GameManager의 Awake()가 먼저 실행되기 때문입니다. 
-    // 이로 인해 player 변수가 null 상태일 수 있습니다.
-    // SnakeHead를 생성한 후에 GameManager의 player 변수를 설정하도록 변경, 아래와 같이 수정
-    // public void SetPlayer(Transform playerTransform)
-    // {
-    //     player = playerTransform;
-    // }
-
     void Start()
     {   
-        // StartCoroutine(FindPlayerCoroutine());
+
+    }
+
+    private void Init()
+    {
+        nickname = PlayerPrefs.GetString("Nickname");
+        // rankScore = PlayerPrefs.GetInt("rankScore");
+        nickNameText.text = nickname;
+        // text_RankScore.text = rankScore.ToString();
     }
     
-    // private IEnumerator FindPlayerCoroutine()
-    // {
-    //     while (player == null)
-    //     {
-    //         player = FindObjectOfType<SnakeHead>()?.transform; // ?.는 널 조건부 연산자로, FindObjectOfType<SnakeHead>()가 null인 경우 안전하게 target을 null로 설정합니다.
-    //         yield return null;
-    //     }
-    // }
 
     // 게임 오버 처리
     public void GameOver()
