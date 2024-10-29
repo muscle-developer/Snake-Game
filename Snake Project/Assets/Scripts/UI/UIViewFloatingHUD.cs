@@ -5,7 +5,12 @@ public class UIViewFloatingHUD : MonoBehaviour
 {
     [SerializeField]
     private GameObject levelTextPrefab; // 레벨 텍스트 프리팹
-    public Transform levelParent; // HUD가 위치할 부모
+    public Transform levelParent; // 레벨 HUD가 위치할 부모
+
+    // [SerializeField]
+    // private GameObject nickNameTextPrefab; // 닉네임 텍스트 프리팹
+    // [SerializeField]
+    // private Transform nickNameParent;   // 닉네임 HUD가 위치할 부모
 
     private List<FloatingHUDLevel> playerHUDs = new List<FloatingHUDLevel>(); // 플레이어 HUD 리스트
     private List<FloatingHUDLevel> enemyHUDs = new List<FloatingHUDLevel>(); // 적 HUD 리스트
@@ -18,6 +23,8 @@ public class UIViewFloatingHUD : MonoBehaviour
         // HUD 인스턴스 생성
         GameObject newHUD = Instantiate(levelTextPrefab, levelParent);
         newHUD.name = snakeTransform.name; // 스네이크 이름 설정
+
+        // GameObject nickNameHUD = Instantiate(nickNameTextPrefab, nickNameParent);
 
         // FloatingHUDLevel 컴포넌트 가져오기
         FloatingHUDLevel floatingHUD = newHUD.GetComponent<FloatingHUDLevel>();
