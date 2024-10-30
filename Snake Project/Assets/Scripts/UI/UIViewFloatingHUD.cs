@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 public class UIViewFloatingHUD : MonoBehaviour
 {
@@ -7,10 +8,15 @@ public class UIViewFloatingHUD : MonoBehaviour
     private GameObject levelTextPrefab; // 레벨 텍스트 프리팹
     public Transform levelParent; // 레벨 HUD가 위치할 부모
 
-    // [SerializeField]
-    // private GameObject nickNameTextPrefab; // 닉네임 텍스트 프리팹
-    // [SerializeField]
-    // private Transform nickNameParent;   // 닉네임 HUD가 위치할 부모
+    [SerializeField]
+    private GameObject nickNameTextPrefab; // 닉네임 텍스트 프리팹
+    [SerializeField]
+    private Transform nickNameParent;   // 닉네임 HUD가 위치할 부모
+    // 플레이어 닉네임
+    private string nickname = null;
+    // 플레이어 닉네임 텍스트
+    [SerializeField]
+    private TMP_Text nickNameText;
 
     private List<FloatingHUDLevel> playerHUDs = new List<FloatingHUDLevel>(); // 플레이어 HUD 리스트
     private List<FloatingHUDLevel> enemyHUDs = new List<FloatingHUDLevel>(); // 적 HUD 리스트
@@ -24,7 +30,14 @@ public class UIViewFloatingHUD : MonoBehaviour
         GameObject newHUD = Instantiate(levelTextPrefab, levelParent);
         newHUD.name = snakeTransform.name; // 스네이크 이름 설정
 
-        // GameObject nickNameHUD = Instantiate(nickNameTextPrefab, nickNameParent);
+       // 닉네임 설정 및 닉네임 HUD 인스턴스 생성
+        nickname = PlayerPrefs.GetString("Nickname", "Player"); // 기본값 "Player"
+        GameObject nickNameHUD = Instantiate(nickNameTextPrefab, nickNameParent);
+        TMP_Text nickNameText = nickNameHUD.GetComponent<TMP_Text>();
+        if (nickNameText != null)
+        {
+            nickNameText.text = nickname; // 닉네임 설정
+        }
 
         // FloatingHUDLevel 컴포넌트 가져오기
         FloatingHUDLevel floatingHUD = newHUD.GetComponent<FloatingHUDLevel>();
