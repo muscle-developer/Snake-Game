@@ -6,7 +6,6 @@ public class FloatingHUDLevel : MonoBehaviour
 {
     [SerializeField]
     private Transform followTarget; // 따라갈 타겟
-    public Transform FollowTarget => followTarget;
     [SerializeField]
     private TMP_Text levelText; // 레벨 텍스트
     [SerializeField]
