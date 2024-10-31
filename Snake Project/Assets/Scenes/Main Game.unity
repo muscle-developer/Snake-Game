@@ -4321,7 +4321,6 @@ MonoBehaviour:
   joystick: {fileID: 1953706129}
   uiJoystick: {fileID: 1158159358}
   uiViewFloatingHUD: {fileID: 1141933599}
-  floatingLevelPrefab: {fileID: 1982093988397940904, guid: 1ad9af8e11cca426a810d0a9a09cb79d, type: 3}
 --- !u!114 &1158159358 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6800509168502000908, guid: 05d3cf86160f943fb8c8d0e295251c90, type: 3}
