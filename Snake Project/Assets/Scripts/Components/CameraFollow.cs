@@ -63,7 +63,7 @@ public class CameraFollow : MonoBehaviour
         }
         else 
         {
-            currentDistance = baseDistance * 0.1f; // 기본 거리의 20%로 시작
+            currentDistance = baseDistance * 0.15f; // 기본 거리의 20%로 시작
         }
     }
 
