@@ -17,6 +17,7 @@ public class UIViewFloatingHUD : MonoBehaviour
 
     private List<FloatingHUDLevel> playerHUDs = new List<FloatingHUDLevel>(); // 플레이어 HUD 리스트
     private List<FloatingHUDLevel> enemyHUDs = new List<FloatingHUDLevel>(); // 적 HUD 리스트
+    private Dictionary<Transform, FloatingHUDNickName> nickNameHUDs = new Dictionary<Transform, FloatingHUDNickName>(); // 닉네임 HUD 관리
 
     [SerializeField]
     private bool HUDFollowing;
@@ -55,6 +56,7 @@ public class UIViewFloatingHUD : MonoBehaviour
         {
             HUDFollowing = true;
             floatingHUDNickName.Init(snakeTransform, isPlayer, HUDFollowing, nickname); // 닉네임 설정
+            nickNameHUDs[snakeTransform] = floatingHUDNickName; // 닉네임 HUD 딕셔너리에 추가
         }
     }
 
@@ -71,6 +73,13 @@ public class UIViewFloatingHUD : MonoBehaviour
         {
             hudToRemove.DestroyHUD();
             enemyHUDs.Remove(hudToRemove);
+        }
+
+        // 닉네임 HUD 제거
+        if (nickNameHUDs.TryGetValue(enemyTransform, out FloatingHUDNickName nickNameHUD))
+        {
+            nickNameHUD.DestroyHUD();
+            nickNameHUDs.Remove(enemyTransform);
         }
     }
 
