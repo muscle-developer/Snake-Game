@@ -17,9 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Text timeText;
 
-    // 플레이어 닉네임 텍스트
-    [SerializeField]
-    private TMP_Text nickNameText;
 
     public void Awake()
     {
@@ -34,7 +31,6 @@ public class GameManager : MonoBehaviour
     private void Init()
     {
         // rankScore = PlayerPrefs.GetInt("rankScore");
-        // nickNameText.text = nickname;
         // text_RankScore.text = rankScore.ToString();
     }
     
