@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public bool isLive;
     
     // 게임 시간 (초)
-    private float gameTime = 30;
+    private float gameTime = 60;
     // 남은 게임 시간 텍스트
     [SerializeField]
     private TMP_Text timeText;
@@ -21,11 +21,26 @@ public class GameManager : MonoBehaviour
     public void Awake()
     {
         GameManager.Instance = this;
+        Init();
     }
 
     void Start()
-    {   
-        Init();
+    {
+        int min = Mathf.FloorToInt(gameTime / 60);
+        int sec = Mathf.FloorToInt(gameTime % 60);
+        timeText.text = string.Format("{0:D2}:{1:D2}", min, sec);
+    }
+
+    void Update()
+    {
+        if (!isLive)
+            return;
+
+        gameTime -= Time.deltaTime;
+        if (gameTime <= 0)
+        {
+            GameOver();
+        }
     }
 
     private void Init()
