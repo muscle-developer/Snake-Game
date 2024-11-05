@@ -27,6 +27,7 @@ public class LobbyManager : MonoBehaviour
     {
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(FadeOut());
+        GameManager.Instance.isLive = true;
     }
 
     public void OnInputFieldValueChanged()
