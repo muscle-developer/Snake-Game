@@ -4,6 +4,9 @@ using TMPro;
 
 public class UIViewFloatingHUD : MonoBehaviour
 {
+    [SerializeField]
+    private UIViewMain uiViewMain;
+
     [Header("레벨")]
     [SerializeField]
     private GameObject levelTextPrefab; // 레벨 텍스트 프리팹
@@ -91,6 +94,7 @@ public class UIViewFloatingHUD : MonoBehaviour
             if (playerHUD != null)
             {
                 playerHUD.LevelUp(); // 플레이어 레벨업 호출
+                uiViewMain.UpdateScoreUI();
             }
         }
     }
@@ -101,6 +105,7 @@ public class UIViewFloatingHUD : MonoBehaviour
         if (index >= 0 && index < enemyHUDs.Count)
         {
             enemyHUDs[index].LevelUp(); // 해당 인덱스의 적 레벨업 호출
+            uiViewMain.UpdateScoreUI();
         }
     }
 }
