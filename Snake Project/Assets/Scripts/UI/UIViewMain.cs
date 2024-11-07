@@ -15,9 +15,18 @@ public class UIViewMain : MonoBehaviour
     // 적 스코어를 저장할 리스트
     private List<int> enemyScores = new List<int>();
 
+    // 게임 종료 UI
+    [SerializeField]
+    private GameObject gameoverPopup; 
+
     void Start()
     {
-        UpdateScoreUI();
+        GameManager.Instance.mainCanvs = this;
+
+        if(GameManager.Instance.isLive)
+            gameoverPopup.gameObject.SetActive(false);
+
+        InitScoreUI();
     }
 
     void LateUpdate()
@@ -31,29 +40,43 @@ public class UIViewMain : MonoBehaviour
         timeText.text = string.Format("{0:D2}:{1:D2}", min, sec);
     }
 
-    // 점수를 업데이트하는 메서드
-    public void UpdateScoreUI()
+    private void InitScoreUI()
     {
-        // 플레이어 점수 업데이트
-        int playerScore = SnakeManager.Instance.BodyParts.Count;
-        scoreTextList[0].text = "Player Score :" + playerScore.ToString();
-
-        // 적 점수 업데이트
-        UpdateEnemyScores();
-        for (int i = 0; i < enemyScores.Count; i++)
+        scoreTextList[0].text = "Player Score : 0";
+        for(int i = 1; i < scoreTextList.Count; i++)
         {
-            scoreTextList[i + 1].text = "Enemy Score : " + enemyScores[i].ToString(); // 적 점수를 UI에 표시
+            scoreTextList[i].text = "Enemy Score : 0";
         }
     }
 
+    // 플레이어 점수 업데이트 메서드   
+    public void UpdatePlayerScore()
+    {
+        int playerScore = SnakeManager.Instance.BodyParts.Count - 1;
+        scoreTextList[0].text = "Player Score :" + playerScore.ToString();
+    }
+
     // 적 점수 업데이트 메서드
-    private void UpdateEnemyScores()
+    public void UpdateEnemyScores()
     {
         enemyScores.Clear(); // 이전 점수 초기화
         foreach (var enemy in EnemySnakeManager.Instance.enemySnakes) // EnemySnakeManager에 있는 모든 적 스네이크를 조회
         {
             int enemyScore = enemy.bodyParts.Count; // 적 스코어는 몸체 개수로 계산
             enemyScores.Add(enemyScore);
+        }
+
+        for (int i = 0; i < enemyScores.Count; i++)
+        {
+            scoreTextList[i + 1].text = "Enemy Score : " + enemyScores[i].ToString(); // 적 점수를 UI에 표시
+        }
+    }
+
+    public void GameoverUI()
+    {
+        if(!GameManager.Instance.isLive)
+        {
+            gameoverPopup.gameObject.SetActive(true);
         }
     }
 }
