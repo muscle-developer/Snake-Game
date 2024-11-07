@@ -94,7 +94,7 @@ public class UIViewFloatingHUD : MonoBehaviour
             if (playerHUD != null)
             {
                 playerHUD.LevelUp(); // 플레이어 레벨업 호출
-                uiViewMain.UpdateScoreUI();
+                uiViewMain.UpdatePlayerScore();
             }
         }
     }
@@ -105,7 +105,7 @@ public class UIViewFloatingHUD : MonoBehaviour
         if (index >= 0 && index < enemyHUDs.Count)
         {
             enemyHUDs[index].LevelUp(); // 해당 인덱스의 적 레벨업 호출
-            uiViewMain.UpdateScoreUI();
+            uiViewMain.UpdateEnemyScores();
         }
     }
 }
