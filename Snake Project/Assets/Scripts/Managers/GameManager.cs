@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public Transform player;
+    public UIViewMain mainCanvs;
 
     [Header("게임 관련")]
     public bool isLive;
@@ -44,6 +45,9 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isLive = false;
+
+        mainCanvs.GameoverUI();
+
         Debug.Log("Game Over! Player's snake has been destroyed.");
         // 여기에서 게임 오버 UI 표시나 리스타트 기능 등을 추가할 수 있습니다.
         // 예: UIManager.Instance.ShowGameOverScreen();
