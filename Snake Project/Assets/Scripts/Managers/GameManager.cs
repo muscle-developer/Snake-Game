@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     
     // 게임 시간 (초)
     public float gameTime = 60;
+    private float initialGameTime;  // 초기화된 게임 시간 저장용
 
 
     public void Awake()
@@ -25,10 +26,9 @@ public class GameManager : MonoBehaviour
 
     private void Init()
     {
-        // rankScore = PlayerPrefs.GetInt("rankScore");
-        // text_RankScore.text = rankScore.ToString();
+        initialGameTime = gameTime; // 게임 시작 시간을 초기화 시간으로 설정
     }
-    
+
     private void Update()
     {
         if (!isLive)
@@ -47,9 +47,13 @@ public class GameManager : MonoBehaviour
         isLive = false;
 
         mainCanvs.GameoverUI();
+    }
 
-        Debug.Log("Game Over! Player's snake has been destroyed.");
-        // 여기에서 게임 오버 UI 표시나 리스타트 기능 등을 추가할 수 있습니다.
-        // 예: UIManager.Instance.ShowGameOverScreen();
+    // 새로운 게임 시작을 위한 리셋 메서드
+    public void ResetGame()
+    {
+        isLive = true;
+        gameTime = initialGameTime; // 게임 시간을 초기화
+        mainCanvs.ResetGame(); // UIViewMain의 UI 초기화 메서드 호출
     }
 }
