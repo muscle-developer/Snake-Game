@@ -111,6 +111,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 991333396557680260}
     m_Modifications:
+    - target: {fileID: 666046370770340851, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_Name
+      value: GameOver Popup
+      objectReference: {fileID: 0}
     - target: {fileID: 1257040773503900008, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -292,6 +296,30 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7134047938699934271, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211105900078555717, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211105900078555717, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211105900078555717, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211105900078555717, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211105900078555717, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8211105900078555717, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
