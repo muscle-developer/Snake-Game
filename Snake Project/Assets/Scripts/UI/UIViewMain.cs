@@ -2,6 +2,9 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Collections;
+using UnityEngine.UI;
 
 public class UIViewMain : MonoBehaviour
 {
@@ -31,6 +34,13 @@ public class UIViewMain : MonoBehaviour
     // 게임 성공 UI
     [SerializeField]
     private GameObject successPopup;
+
+    [SerializeField] 
+    private Image fadeImage;
+    private float fadeDuration = 1f;
+
+    // 비동기 페이드 전환을 위한 코루틴
+    private Coroutine coroutine;
 
     void Start()
     {
@@ -136,5 +146,67 @@ public class UIViewMain : MonoBehaviour
         successPopup.SetActive(false); // 성공 화면 닫기
         GameManager.Instance.ResetGame(); // 게임 초기화 메서드 호출 (필요 시 GameManager에 구현)
         InitScoreUI(); // UI 초기화
+    }
+
+    // 버튼 클릭 관련
+    // 나가기 버튼 눌렀을 때
+    public void OnClickGameExit()
+    {
+        Application.Quit();
+    }
+
+    // 다시하기 버튼
+    public void OnClickRetry(string sceneName)
+    {
+        if(coroutine == null)
+        {
+            coroutine = StartCoroutine(SceneTrans(sceneName));
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        Color color = fadeImage.color;
+        float startAlpha = color.a;
+
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            color.a = Mathf.Lerp(startAlpha, 0f, normalizedTime);
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        color.a = 0f;
+        fadeImage.color = color;
+    }
+
+    private IEnumerator FadeIn()
+    {
+        Color color = fadeImage.color;
+        float startAlpha = color.a;
+
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDuration;
+            color.a = Mathf.Lerp(startAlpha, 1f, normalizedTime);
+            fadeImage.color = color;
+            yield return null;
+        }
+
+        color.a = 1f;
+        fadeImage.color = color;
+    }
+
+    // 비동기 씬 전환으로 화면 페이드 인아웃 연출 주기.
+    private IEnumerator SceneTrans(string sceneName)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
+        async.allowSceneActivation = false;
+        yield return StartCoroutine(FadeIn());
+        yield return new WaitForSeconds(1f);
+        async.allowSceneActivation = true;
+
+        coroutine = null;
     }
 }
