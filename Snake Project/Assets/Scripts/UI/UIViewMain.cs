@@ -146,6 +146,9 @@ public class UIViewMain : MonoBehaviour
         successPopup.SetActive(false); // 성공 화면 닫기
         GameManager.Instance.ResetGame(); // 게임 초기화 메서드 호출 (필요 시 GameManager에 구현)
         InitScoreUI(); // UI 초기화
+
+        // 다음 목표 점수를 표시합니다.
+        targetScoreText.text = "Target Score: " + targetScore;
     }
 
     // 버튼 클릭 관련
@@ -158,6 +161,18 @@ public class UIViewMain : MonoBehaviour
     // 다시하기 버튼
     public void OnClickRetry(string sceneName)
     {
+        if(coroutine == null)
+        {
+            coroutine = StartCoroutine(SceneTrans(sceneName));
+        }
+    }
+
+    // 성공 시 다음 단계로 가는 버튼
+    public void OnClickNextLevel(string sceneName)
+    {
+        targetScore += 10; // 다음 목표 점수로 증가
+        targetScoreText.text = "Target Score: " + targetScore;
+        
         if(coroutine == null)
         {
             coroutine = StartCoroutine(SceneTrans(sceneName));
