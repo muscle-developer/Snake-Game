@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5752475805489918983}
   - component: {fileID: 4648997692545072692}
   - component: {fileID: 6434757504329399776}
-  - component: {fileID: 6305059463663862702}
   m_Layer: 5
   m_Name: Success Popup
   m_TagString: Untagged
@@ -103,18 +102,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &6305059463663862702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999022323736510832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d755b0f0d13544c7a8f4435f02a1dfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2683529158852736605
 GameObject:
   m_ObjectHideFlags: 0
