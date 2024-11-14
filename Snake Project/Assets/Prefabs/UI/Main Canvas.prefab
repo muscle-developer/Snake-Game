@@ -141,7 +141,6 @@ MonoBehaviour:
   gameoverPopup: {fileID: 74224969721812428}
   successPopup: {fileID: 4381895056217710202}
   fadeImage: {fileID: 0}
-  joystickPopup: {fileID: 0}
 --- !u!1 &2118589652639084635
 GameObject:
   m_ObjectHideFlags: 0
@@ -8202,6 +8201,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6228754177027847150}
     m_Modifications:
+    - target: {fileID: 103646625533708923, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 103646625533708923, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2523033075369932840}
+    - target: {fileID: 103646625533708923, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickGameExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 103646625533708923, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Lobby Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 103646625767890133, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2523033075369932840}
+    - target: {fileID: 103646625767890133, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickRetry
+      objectReference: {fileID: 0}
     - target: {fileID: 103646626795593206, guid: 4c0d7b459ddea4866ac0396224d1a68a, type: 3}
       propertyPath: m_Name
       value: GameOver Popup
@@ -8407,7 +8430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2896019268179383966, guid: ae59ba5a8f89f447584c77c06df3750c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2896019268179383966, guid: ae59ba5a8f89f447584c77c06df3750c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -8416,6 +8439,10 @@ PrefabInstance:
     - target: {fileID: 2896019268179383966, guid: ae59ba5a8f89f447584c77c06df3750c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickGameExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 2896019268179383966, guid: ae59ba5a8f89f447584c77c06df3750c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Lobby Scene
       objectReference: {fileID: 0}
     - target: {fileID: 4302225725318583524, guid: ae59ba5a8f89f447584c77c06df3750c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
