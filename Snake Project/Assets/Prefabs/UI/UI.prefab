@@ -122,7 +122,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1662142703565578038
 RectTransform:
   m_ObjectHideFlags: 0
@@ -216,6 +216,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 2523033075369932840, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
+      propertyPath: fadeImage
+      value: 
+      objectReference: {fileID: 3519580318470887332}
     - target: {fileID: 2562216318201398568, guid: 8cce819b1f1b44900b94fd6dce54e1b6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
