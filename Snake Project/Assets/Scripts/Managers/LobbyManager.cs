@@ -27,7 +27,7 @@ public class LobbyManager : MonoBehaviour
     {
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(FadeOut());
-        GameManager.Instance.isLive = true;
+        GameManager.Instance.isLive = false;
     }
 
     public void OnInputFieldValueChanged()
@@ -38,7 +38,10 @@ public class LobbyManager : MonoBehaviour
     public void OnClickBtnStart()
     {
         if (co == null)
+        {
+            GameManager.Instance.isNewGame = true;
             co = StartCoroutine(SceneTrans("Main Game"));
+        }
     }
 
     private IEnumerator FadeOut()
