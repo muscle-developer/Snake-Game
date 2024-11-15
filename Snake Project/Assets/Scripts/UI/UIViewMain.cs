@@ -1,4 +1,3 @@
-// UIViewMain.cs
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
@@ -52,14 +51,19 @@ public class UIViewMain : MonoBehaviour
             successPopup.gameObject.SetActive(false);
         }
 
-        InitScoreUI();
+        if(GameManager.Instance.isNextGame)
+        {
+            // 이전 최고 점수 로드
+            previousScore = PlayerPrefs.GetInt("HighScore", 0);
+            scoreTextList[0].text = "내 점수: " + previousScore;
 
-        // 이전 최고 점수 로드
-        previousScore = PlayerPrefs.GetInt("HighScore", 0);
-        scoreTextList[0].text = "Player Score: " + previousScore;
-
-        // 초기 목표 점수 UI 설정
-        targetScoreText.text = "Target Score: " + targetScore;
+            // 초기 목표 점수 UI 설정
+            targetScoreText.text = "목표 점수: " + targetScore;
+        }
+        else if(GameManager.Instance.isNewGame)
+        {
+            InitScoreUI();
+        }
     }
 
     void LateUpdate()
@@ -75,18 +79,19 @@ public class UIViewMain : MonoBehaviour
 
     private void InitScoreUI()
     {
-        scoreTextList[0].text = "Player Score :" + previousScore;
+        scoreTextList[0].text = "내 점수 :" + currentScore;
         for(int i = 1; i < scoreTextList.Count; i++)
         {
-            scoreTextList[i].text = "Enemy Score : 0";
+            scoreTextList[i].text = "상대 점수 : 3";
         }
+        targetScoreText.text = "목표 점수 :" + targetScore.ToString();
     }
 
     // 플레이어 점수 업데이트 메서드   
     public void UpdatePlayerScore()
     {
         currentScore = SnakeManager.Instance.BodyParts.Count - 1;
-        scoreTextList[0].text = "Player Score: " + currentScore.ToString();
+        scoreTextList[0].text = "내 점수: " + currentScore.ToString();
 
         // 현재 점수가 목표 점수에 도달하면 성공 처리
         if (currentScore >= targetScore)
@@ -115,7 +120,7 @@ public class UIViewMain : MonoBehaviour
 
         for (int i = 0; i < enemyScores.Count; i++)
         {
-            scoreTextList[i + 1].text = "Enemy Score : " + enemyScores[i].ToString(); // 적 점수를 UI에 표시
+            scoreTextList[i + 1].text = "상대 점수 : " + enemyScores[i].ToString(); // 적 점수를 UI에 표시
         }
     }
 
@@ -126,7 +131,7 @@ public class UIViewMain : MonoBehaviour
 
         // 목표 점수 증가 (다음 게임을 위해 설정)
         targetScore += 10;
-        targetScoreText.text = "Target Score: " + targetScore;
+        targetScoreText.text = "목표 점수: " + targetScore;
 
         // 다음 게임을 위해 현재 점수 초기화
         currentScore = 0;
@@ -145,24 +150,34 @@ public class UIViewMain : MonoBehaviour
     {
         successPopup.SetActive(false); // 성공 화면 닫기
         GameManager.Instance.ResetGame(); // 게임 초기화 메서드 호출 (필요 시 GameManager에 구현)
-        InitScoreUI(); // UI 초기화
 
         // 다음 목표 점수를 표시합니다.
-        targetScoreText.text = "Target Score: " + targetScore;
+        targetScoreText.text = "목표 점수: " + targetScore;
     }
 
     // 버튼 클릭 관련
     // 나가기 버튼 눌렀을 때
-    public void OnClickGameExit()
+    public void OnClickGameExit(string sceneName)
     {
-        Application.Quit();
+        GameManager.Instance.isNewGame = true;
+        GameManager.Instance.isCurrentGame = false;
+        GameManager.Instance.isNextGame = false;
+        if(coroutine == null)
+        {
+            coroutine = StartCoroutine(SceneTrans(sceneName));
+        }
     }
 
     // 다시하기 버튼
     public void OnClickRetry(string sceneName)
     {
+        GameManager.Instance.isCurrentGame = true;
+        GameManager.Instance.isNewGame = false;
+        GameManager.Instance.isNextGame = false;
         if(coroutine == null)
         {
+            // 게임 리셋을 먼저 하고 씬 전환
+            GameManager.Instance.ResetGame();
             coroutine = StartCoroutine(SceneTrans(sceneName));
         }
     }
@@ -170,10 +185,14 @@ public class UIViewMain : MonoBehaviour
     // 성공 시 다음 단계로 가는 버튼
     public void OnClickNextLevel(string sceneName)
     {
-        targetScore += 10; // 다음 목표 점수로 증가
-        targetScoreText.text = "Target Score: " + targetScore;
-        
-        if(coroutine == null)
+        GameManager.Instance.isNextGame = true;
+        GameManager.Instance.isNewGame = false;
+        GameManager.Instance.isCurrentGame = false;
+
+        targetScore += 10;
+        targetScoreText.text = "목표 점수: " + targetScore;
+
+        if (coroutine == null)
         {
             coroutine = StartCoroutine(SceneTrans(sceneName));
         }
@@ -216,11 +235,17 @@ public class UIViewMain : MonoBehaviour
     // 비동기 씬 전환으로 화면 페이드 인아웃 연출 주기.
     private IEnumerator SceneTrans(string sceneName)
     {
+        // 먼저 페이드 아웃
+        yield return StartCoroutine(FadeIn());
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
         async.allowSceneActivation = false;
-        yield return StartCoroutine(FadeIn());
+
+        // 페이드 효과가 끝난 후 씬을 로드하고 활성화
         yield return new WaitForSeconds(1f);
         async.allowSceneActivation = true;
+        
+        // 씬 전환 후 페이드 인
+        yield return StartCoroutine(FadeOut());
 
         coroutine = null;
     }
