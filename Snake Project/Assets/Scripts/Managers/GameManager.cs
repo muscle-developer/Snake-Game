@@ -39,34 +39,21 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "Main Game")
         {
-            // 각 상태가 이미 설정된 상태를 유지
-            if (isCurrentGame)
+            // isNextGame이 true인 경우 상태를 변경하지 않음
+            if (isNextGame)
             {
-                Debug.Log("현재 게임 유지 중");
-                // isCurrentGame 유지, 다른 상태는 초기화하지 않음
-                isLive = true;
+                return;
             }
-            else if (isNextGame)
+            else if (isCurrentGame)
             {
-                Debug.Log("다음 게임 상태 유지 중");
-                // isNextGame 유지, 다른 상태는 초기화하지 않음
-                isLive = true;
-            }
-            else if (isNewGame)
-            {
-                Debug.Log("새로운 게임 시작 중");
-                // 새로운 게임 설정, isNewGame만 true 유지
-                isNewGame = true;
-                isLive = true;
+                isNewGame = false;
+                isNextGame = false;
             }
             else
             {
-                // 만약 모든 조건이 충족되지 않으면 기본 설정
-                Debug.Log("기본 새 게임 설정");
                 isNewGame = true;
                 isCurrentGame = false;
                 isNextGame = false;
-                isLive = true;
             }
         }
     }
