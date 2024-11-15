@@ -89,34 +89,44 @@ public class SnakeHead : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy Snake"))
+        // 적 스네이크 본체와 충돌했을 경우
+        if (other.CompareTag("Enemy Snake"))
         {
+            // 플레이어 레벨 (현재 몸통 개수 - 1)
             int playerLevel = SnakeManager.Instance.BodyParts.Count;
+
+            // 충돌한 적 스네이크의 EnemySnake 컴포넌트 가져오기
             EnemySnake enemySnake = other.GetComponent<EnemySnake>();
-            int enemyLevel = enemySnake.bodyParts.Count; // 적 스네이크 레벨
+            // 적 스네이크 레벨 (몸통 개수)
+            int enemyLevel = enemySnake.bodyParts.Count;
 
             // 플레이어 레벨이 더 높은 경우
             if (playerLevel > enemyLevel)
             {
-                // 적의 HUD 제거
+                // 적 스네이크의 HUD 제거
                 IngameController.Instance.RemoveHUD(other.gameObject);
-                // 플레이어의 레벨이 더 높으면 적 스네이크 제거
+                // 적 스네이크 제거
                 EnemySnakeManager.Instance.DestroyEnemySnake(enemySnake);
-                // 죽은 자리에 몸통 생성
+                // 적 스네이크가 죽은 위치에 몸통 파츠 생성
                 enemySnake.SpawnBodyPartsOnDeath();
             }
             // 적 레벨이 더 높은 경우
             else
             {
+                // 플레이어 스네이크 제거
                 SnakeManager.Instance.DestroySnake();
             }
         }
-        if(other.CompareTag("Enemy Snake Body"))
-        {
-            SnakeManager.Instance.AddBodyPart();   
-            IngameController.Instance.uiViewFloatingHUD.PlayerLevelUp(); // 레벨업 UI 업데이트
 
-            // 적의 몸체를 풀로 반환
+        // 적 스네이크의 몸통과 충돌했을 경우
+        if (other.CompareTag("Enemy Snake Body"))
+        {
+            // 플레이어 몸통 추가 (레벨 상승)
+            SnakeManager.Instance.AddBodyPart();
+            // UI에 플레이어 레벨업 업데이트
+            IngameController.Instance.uiViewFloatingHUD.PlayerLevelUp();
+
+            // 충돌한 적 스네이크의 몸통을 오브젝트 풀로 반환
             PoolManager.Instance.ReturnToPool(other.gameObject);
         }
     }
