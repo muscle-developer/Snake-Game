@@ -36,7 +36,7 @@ public class IngameController : MonoBehaviour
     void Start()
     {
         InstantiateSnakeHead();
-        InstantiateEnemySnakes(enemySnakeCount); // 적 스네이크 생성 메서드 호출
+        InstantiateEnemySnakes(1); // 적 스네이크 생성 메서드 호출
     }
 
     private void InstantiateSnakeHead()
@@ -96,20 +96,46 @@ public class IngameController : MonoBehaviour
     }
 
     // 적을 랜덤한 위치를 반환하는 함수
+    // private Vector3 ReturnRandomPosition()
+    // {
+    //     if (rangeObject.Count == 0)
+    //         return Vector3.zero;
+
+    //     // 무작위로 rangeObject에서 오브젝트 선택
+    //     GameObject randomRangeObject = rangeObject[Random.Range(0, rangeObject.Count)];
+    //     Vector3 originPosition = randomRangeObject.transform.position;
+    //     Vector3 scale = randomRangeObject.transform.localScale;
+
+    //     float randomX = Random.Range(-scale.x / 2, scale.x / 2);
+    //     float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
+    //     Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
+
+    //     return originPosition + randomPosition;
+    // }
+
+    // 촬영을 위한 임시 코드
     private Vector3 ReturnRandomPosition()
     {
-        if (rangeObject.Count == 0)
+        if (SnakeManager.Instance.BodyParts.Count == 0)
             return Vector3.zero;
 
-        // 무작위로 rangeObject에서 오브젝트 선택
-        GameObject randomRangeObject = rangeObject[Random.Range(0, rangeObject.Count)];
-        Vector3 originPosition = randomRangeObject.transform.position;
-        Vector3 scale = randomRangeObject.transform.localScale;
+        // 플레이어 스네이크의 위치 가져오기
+        Vector3 playerPosition = SnakeManager.Instance.BodyParts[0].transform.position;
 
-        float randomX = Random.Range(-scale.x / 2, scale.x / 2);
-        float randomZ = Random.Range(-scale.z / 2, scale.z / 2);
-        Vector3 randomPosition = new Vector3(randomX, 0.5f, randomZ);
+        // 생성 반경 설정
+        float spawnRadius = 10f; // 적 생성 반경
+        float minRadius = 5f; // 플레이어와 너무 가까운 위치 방지
 
-        return originPosition + randomPosition;
+        // 랜덤 각도와 거리로 위치 계산
+        float randomAngle = Random.Range(0, 360) * Mathf.Deg2Rad;
+        float randomDistance = Random.Range(minRadius, spawnRadius);
+
+        float offsetX = Mathf.Cos(randomAngle) * randomDistance;
+        float offsetZ = Mathf.Sin(randomAngle) * randomDistance;
+
+        Vector3 randomPosition = new Vector3(offsetX, 0.5f, offsetZ);
+
+        return playerPosition + randomPosition;
     }
+
 }
