@@ -45,6 +45,9 @@ public class UIViewMain : MonoBehaviour
     {
         GameManager.Instance.mainCanvs = this;
 
+        fadeImage.gameObject.SetActive(true);
+        StartCoroutine(FadeOut());
+
         if(GameManager.Instance.isLive)
         {
             gameoverPopup.gameObject.SetActive(false);
@@ -235,10 +238,10 @@ public class UIViewMain : MonoBehaviour
     // 비동기 씬 전환으로 화면 페이드 인아웃 연출 주기.
     private IEnumerator SceneTrans(string sceneName)
     {
-        // 먼저 페이드 아웃
+        // 먼저 페이드 인
         fadeImage.gameObject.SetActive(true);
         yield return StartCoroutine(FadeIn());
-        
+
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
         async.allowSceneActivation = false;
 
@@ -246,7 +249,7 @@ public class UIViewMain : MonoBehaviour
         yield return new WaitForSeconds(1f);
         async.allowSceneActivation = true;
         
-        // 씬 전환 후 페이드 인
+        // 씬 전환 후 페이드 아웃
         yield return StartCoroutine(FadeOut());
         fadeImage.gameObject.SetActive(false); // 페이드 효과 종료 후 비활성화
 
