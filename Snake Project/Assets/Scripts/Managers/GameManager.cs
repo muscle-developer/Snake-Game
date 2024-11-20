@@ -20,7 +20,16 @@ public class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        GameManager.Instance = this;
+        if (GameManager.Instance == null)
+        {
+            GameManager.Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         Init();
         isLive = true;
     }
@@ -39,28 +48,41 @@ public class GameManager : MonoBehaviour
     {
         if (scene.name == "Main Game")
         {
-            // isNextGame이 true인 경우 상태를 변경하지 않음
+            Debug.Log($"Before OnSceneLoaded - isNewGame: {isNewGame}, isNextGame: {isNextGame}, isCurrentGame: {isCurrentGame}");
+
             if (isNextGame)
             {
-                return;
+                // 다음 레벨로 이동 중인 경우
+                isNewGame = false;
+                isNextGame = true;
+                isCurrentGame = false;
             }
             else if (isCurrentGame)
             {
+                // 현재 게임 상태 유지
                 isNewGame = false;
                 isNextGame = false;
             }
             else
             {
+                // 새 게임 시작
                 isNewGame = true;
-                isCurrentGame = false;
                 isNextGame = false;
+                isCurrentGame = false;
             }
+
+            Debug.Log($"After OnSceneLoaded - isNewGame: {isNewGame}, isNextGame: {isNextGame}, isCurrentGame: {isCurrentGame}");
         }
     }
 
     private void Init()
     {
         initialGameTime = gameTime; // 게임 시작 시간을 초기화 시간으로 설정
+        ResetGameStates();
+    }
+
+    private void ResetGameStates()
+    {
         isNewGame = false;
         isNextGame = false;
         isCurrentGame = false;
