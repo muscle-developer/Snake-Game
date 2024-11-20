@@ -192,6 +192,8 @@ public class UIViewMain : MonoBehaviour
         GameManager.Instance.isNewGame = false;
         GameManager.Instance.isCurrentGame = false;
 
+        Debug.Log($"OnClickNextLevel - isNewGame: {GameManager.Instance.isNewGame}, isNextGame: {GameManager.Instance.isNextGame}, isCurrentGame: {GameManager.Instance.isCurrentGame}");
+
         targetScore += 10;
         targetScoreText.text = "목표 점수: " + targetScore;
 
