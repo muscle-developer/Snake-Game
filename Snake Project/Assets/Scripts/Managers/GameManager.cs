@@ -17,75 +17,29 @@ public class GameManager : MonoBehaviour
     public float gameTime = 60;
     private float initialGameTime;  // 초기화된 게임 시간 저장용
 
+    public IGameState currentState;
 
     public void Awake()
     {
-        if (GameManager.Instance == null)
+        if (Instance == null)
         {
-            GameManager.Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 씬 전환 시 파괴되지 않음
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject); // 중복 생성 방지
         }
-
         Init();
-        isLive = true;
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (scene.name == "Main Game")
-        {
-            Debug.Log($"Before OnSceneLoaded - isNewGame: {isNewGame}, isNextGame: {isNextGame}, isCurrentGame: {isCurrentGame}");
-
-            if (isNextGame)
-            {
-                // 다음 레벨로 이동 중인 경우
-                isNewGame = false;
-                isNextGame = true;
-                isCurrentGame = false;
-            }
-            else if (isCurrentGame)
-            {
-                // 현재 게임 상태 유지
-                isNewGame = false;
-                isNextGame = false;
-            }
-            else
-            {
-                // 새 게임 시작
-                isNewGame = true;
-                isNextGame = false;
-                isCurrentGame = false;
-            }
-
-            Debug.Log($"After OnSceneLoaded - isNewGame: {isNewGame}, isNextGame: {isNextGame}, isCurrentGame: {isCurrentGame}");
-        }
     }
 
     private void Init()
     {
-        initialGameTime = gameTime; // 게임 시작 시간을 초기화 시간으로 설정
-        ResetGameStates();
-    }
+        // 게임 시간 초기화
+        initialGameTime = 60; // 기본 값 설정 (필요 시 인스펙터에서 조정 가능)
+        gameTime = initialGameTime;
 
-    private void ResetGameStates()
-    {
-        isNewGame = false;
-        isNextGame = false;
-        isCurrentGame = false;
+        isLive = true;
     }
 
     private void Update()
@@ -93,11 +47,25 @@ public class GameManager : MonoBehaviour
         if (!isLive)
             return;
 
+        currentState?.UpdateState(this); // 현재 상태 업데이트
+
         gameTime -= Time.deltaTime;
-        if (gameTime <= 0)
+        if (gameTime <= 0 && isLive)
         {
             GameOver();
         }
+    }
+
+    public void SetState(IGameState newState)
+    {
+        if (currentState != null)
+        {
+            Debug.Log($"Exiting {currentState.GetType().Name}");
+            currentState.ExitState(this); // 기존 상태 종료
+        }
+        currentState = newState;
+        Debug.Log($"Entering {currentState.GetType().Name}");
+        currentState.EnterState(this); // 새로운 상태 진입
     }
 
     // 게임 오버 처리
@@ -105,15 +73,7 @@ public class GameManager : MonoBehaviour
     {
         isLive = false;
 
-        mainCanvs.GameoverUI();
-    }
-
-    // 새로운 게임 시작을 위한 리셋 메서드
-    public void ResetGame()
-    {
-        isLive = true;
-        gameTime = initialGameTime; // 게임 시간을 초기화
-        isNewGame = false; // 게임 리셋 시 새로운 게임 상태를 false로 설정
-        mainCanvs.ResetGame(); // UIViewMain의 UI 초기화 메서드 호출
+        if(mainCanvs != null)
+            mainCanvs.GameoverUI();
     }
 }
