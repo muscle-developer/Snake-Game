@@ -45,6 +45,13 @@ public class UIViewMain : MonoBehaviour
     {
         GameManager.Instance.mainCanvs = this;
 
+        if (GameManager.Instance.isNewGame || GameManager.Instance.isNextGame || GameManager.Instance.isCurrentGame)
+        {
+            GameManager.Instance.isLive = true;
+            GameManager.Instance.gameTime = 60; // 기본 게임 시간 설정
+            InitScoreUI();
+        }
+
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(FadeOut());
 
@@ -60,7 +67,16 @@ public class UIViewMain : MonoBehaviour
             previousScore = PlayerPrefs.GetInt("HighScore", 0);
             scoreTextList[0].text = "내 점수: " + previousScore;
 
+            // 목표 점수 증가 (다음 게임을 위해 설정)
+            targetScore += 10;
             // 초기 목표 점수 UI 설정
+            targetScoreText.text = "목표 점수: " + targetScore;
+        }
+        else if(GameManager.Instance.isCurrentGame)
+        {
+            previousScore = PlayerPrefs.GetInt("HighScore", 0);
+            scoreTextList[0].text = "내 점수: " + previousScore;
+
             targetScoreText.text = "목표 점수: " + targetScore;
         }
         else if(GameManager.Instance.isNewGame)
@@ -132,8 +148,6 @@ public class UIViewMain : MonoBehaviour
         // 성공 화면 활성화
         successPopup.SetActive(true);
 
-        // 목표 점수 증가 (다음 게임을 위해 설정)
-        targetScore += 10;
         targetScoreText.text = "목표 점수: " + targetScore;
 
         // 다음 게임을 위해 현재 점수 초기화
@@ -152,7 +166,6 @@ public class UIViewMain : MonoBehaviour
     public void ResetGame()
     {
         successPopup.SetActive(false); // 성공 화면 닫기
-        GameManager.Instance.ResetGame(); // 게임 초기화 메서드 호출 (필요 시 GameManager에 구현)
 
         // 다음 목표 점수를 표시합니다.
         targetScoreText.text = "목표 점수: " + targetScore;
@@ -162,44 +175,32 @@ public class UIViewMain : MonoBehaviour
     // 나가기 버튼 눌렀을 때
     public void OnClickGameExit(string sceneName)
     {
-        GameManager.Instance.isNewGame = true;
-        GameManager.Instance.isCurrentGame = false;
-        GameManager.Instance.isNextGame = false;
         if(coroutine == null)
         {
             coroutine = StartCoroutine(SceneTrans(sceneName));
+            GameManager.Instance.SetState(new NewGameState());
         }
     }
 
     // 다시하기 버튼
     public void OnClickRetry(string sceneName)
     {
-        GameManager.Instance.isCurrentGame = true;
-        GameManager.Instance.isNewGame = false;
-        GameManager.Instance.isNextGame = false;
+
         if(coroutine == null)
         {
-            // 게임 리셋을 먼저 하고 씬 전환
-            GameManager.Instance.ResetGame();
             coroutine = StartCoroutine(SceneTrans(sceneName));
+            GameManager.Instance.SetState(new CurrentGameState());
         }
     }
 
     // 성공 시 다음 단계로 가는 버튼
     public void OnClickNextLevel(string sceneName)
     {
-        GameManager.Instance.isNextGame = true;
-        GameManager.Instance.isNewGame = false;
-        GameManager.Instance.isCurrentGame = false;
-
-        Debug.Log($"OnClickNextLevel - isNewGame: {GameManager.Instance.isNewGame}, isNextGame: {GameManager.Instance.isNextGame}, isCurrentGame: {GameManager.Instance.isCurrentGame}");
-
-        targetScore += 10;
-        targetScoreText.text = "목표 점수: " + targetScore;
 
         if (coroutine == null)
         {
             coroutine = StartCoroutine(SceneTrans(sceneName));
+            GameManager.Instance.SetState(new NextGameState());
         }
     }
 
