@@ -137,5 +137,4 @@ public class IngameController : MonoBehaviour
 
     //     return playerPosition + randomPosition;
     // }
-
 }
