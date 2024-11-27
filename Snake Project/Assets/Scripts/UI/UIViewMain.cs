@@ -30,6 +30,10 @@ public class UIViewMain : MonoBehaviour
     // 게임 종료 UI
     [SerializeField]
     private GameObject gameoverPopup;
+    [SerializeField]
+    private TMP_Text finalScoreText;
+    [SerializeField]
+    private TMP_Text nickNameText;
 
     [Header("게임 성공")]
     // 게임 성공 UI
@@ -161,6 +165,7 @@ public class UIViewMain : MonoBehaviour
         if(!GameManager.Instance.isLive)
         {
             gameoverPopup.gameObject.SetActive(true);
+            
         }
     }
 
