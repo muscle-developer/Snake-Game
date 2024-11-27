@@ -165,7 +165,9 @@ public class UIViewMain : MonoBehaviour
         if(!GameManager.Instance.isLive)
         {
             gameoverPopup.gameObject.SetActive(true);
-            
+            finalScoreText.text = currentScore.ToString();
+            string nickname = PlayerPrefs.GetString("Nickname", "Player");
+            nickNameText.text = nickname;
         }
     }
 
