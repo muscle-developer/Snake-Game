@@ -26,10 +26,12 @@ public class UIViewMain : MonoBehaviour
     // 적 스코어를 저장할 리스트
     private List<int> enemyScores = new List<int>();
 
+    [Header("게임 종료")]
     // 게임 종료 UI
     [SerializeField]
-    private GameObject gameoverPopup; 
+    private GameObject gameoverPopup;
 
+    [Header("게임 성공")]
     // 게임 성공 UI
     [SerializeField]
     private GameObject successPopup;
