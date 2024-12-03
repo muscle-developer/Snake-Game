@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     public Transform player;
     public UIViewMain mainCanvs;
 
-    [Header("게임 관련")]
+    [Header("게임 상태 관련")]
     public bool isLive;
     public bool isNewGame = false; // 새로 시작한 경우
     public bool isNextGame = false; // 성공 후 다음으로 넘어가는 게임
