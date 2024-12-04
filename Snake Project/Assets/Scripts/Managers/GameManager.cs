@@ -12,8 +12,7 @@ public class GameManager : MonoBehaviour
     public bool isNextGame = false; // 성공 후 다음으로 넘어가는 게임
     public bool isCurrentGame = false; // 목표점수를 달성 못해서 재도전 게임
     
-    // 게임 시간 (초)
-    public float gameTime = 60;
+    public float gameTime = 60;  // 게임 시간 (초)
     private float initialGameTime;  // 초기화된 게임 시간 저장용
 
     public IGameState currentState;
