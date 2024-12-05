@@ -27,7 +27,6 @@ public class UIViewMain : MonoBehaviour
     private List<int> enemyScores = new List<int>();
 
     [Header("게임 종료")]
-    // 게임 종료 UI
     [SerializeField]
     private GameObject gameoverPopup;
     [SerializeField]
@@ -36,7 +35,6 @@ public class UIViewMain : MonoBehaviour
     private TMP_Text nickNameText;
 
     [Header("게임 성공")]
-    // 게임 성공 UI
     [SerializeField]
     private GameObject successPopup;
 
