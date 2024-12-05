@@ -89,6 +89,7 @@ public class UIViewMain : MonoBehaviour
         }
     }
 
+    // UI 점수 표시
     void LateUpdate()
     {
         if (!GameManager.Instance.isLive)
