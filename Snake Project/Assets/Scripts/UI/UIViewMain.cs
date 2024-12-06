@@ -49,6 +49,7 @@ public class UIViewMain : MonoBehaviour
     {
         GameManager.Instance.mainCanvs = this;
 
+        // 주석 추가 예정
         if (GameManager.Instance.isNewGame || GameManager.Instance.isNextGame || GameManager.Instance.isCurrentGame)
         {
             GameManager.Instance.isLive = true;
