@@ -60,6 +60,7 @@ public class UIViewMain : MonoBehaviour
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(FadeOut());
 
+        // 주석 추가 예정
         if(GameManager.Instance.isLive)
         {
             gameoverPopup.gameObject.SetActive(false);
