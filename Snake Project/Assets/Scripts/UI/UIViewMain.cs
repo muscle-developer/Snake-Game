@@ -91,7 +91,7 @@ public class UIViewMain : MonoBehaviour
         }
     }
 
-    // UI 점수 표시
+    // UI 시간 표시
     void LateUpdate()
     {
         if (!GameManager.Instance.isLive)
