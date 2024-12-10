@@ -104,7 +104,7 @@ public class UIViewMain : MonoBehaviour
 
     private void InitScoreUI()
     {
-        scoreTextList[0].text = "내 점수 :" + currentScore;
+        scoreTextList[0].text = "내 점수 :" + 0;
         for(int i = 1; i < scoreTextList.Count; i++)
         {
             scoreTextList[i].text = "상대 점수 : 3";
