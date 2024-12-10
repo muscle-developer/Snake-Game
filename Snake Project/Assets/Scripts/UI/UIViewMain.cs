@@ -163,12 +163,13 @@ public class UIViewMain : MonoBehaviour
 
     public void GameoverUI()
     {
+        // 종료 상태인지 확인
         if(!GameManager.Instance.isLive)
         {
-            gameoverPopup.gameObject.SetActive(true);
-            finalScoreText.text = currentScore.ToString();
-            string nickname = PlayerPrefs.GetString("Nickname", "Player");
-            nickNameText.text = nickname;
+            gameoverPopup.gameObject.SetActive(true); // 성공 팝업 활성화
+            finalScoreText.text = currentScore.ToString(); // 현재 점수를 게임 종료 팝업에 표시
+            string nickname = PlayerPrefs.GetString("Nickname", "Player"); // PlayerPrefs에서 저장된 닉네임을 불러오며, 없을 경우 기본값으로 "Player"를 사용
+            nickNameText.text = nickname; // 불러온 닉네임을 게임 종료 팝업에 표시
         }
     }
 
