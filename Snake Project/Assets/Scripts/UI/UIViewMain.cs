@@ -60,7 +60,7 @@ public class UIViewMain : MonoBehaviour
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(FadeOut());
 
-        // 주석 추가 예정
+        // 처음 게임 시작시에는 각 팝업들을 꺼준다.
         if(GameManager.Instance.isLive)
         {
             gameoverPopup.gameObject.SetActive(false);
