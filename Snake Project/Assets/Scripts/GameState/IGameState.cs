@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// IGameState.cs
 public interface IGameState
 {
     void EnterState(GameManager gameManager);  // 상태에 진입할 때 실행
