@@ -54,16 +54,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 현재 상태를 새로운 상태로 변경하는 메서드
     public void SetState(IGameState newState)
     {
+        // 현재 상태가 존재하면, 상태를 종료
         if (currentState != null)
         {
-            Debug.Log($"Exiting {currentState.GetType().Name}");
-            currentState.ExitState(this); // 기존 상태 종료
+            Debug.Log($"Exiting {currentState.GetType().Name}"); // 현재 상태 이름을 로그로 출력
+            currentState.ExitState(this); // 현재 상태의 ExitState 메서드 호출 (종료 작업 수행)
         }
-        currentState = newState;
-        Debug.Log($"Entering {currentState.GetType().Name}");
-        currentState.EnterState(this); // 새로운 상태 진입
+
+        // 새로운 상태로 전환
+        currentState = newState; // currentState를 새로운 상태로 갱신
+
+        // 새로운 상태의 EnterState 메서드를 호출하여 초기화 작업 수행
+        Debug.Log($"Entering {currentState.GetType().Name}"); // 새 상태 이름을 로그로 출력
+        currentState.EnterState(this); // 새로운 상태의 초기화 작업 수행
     }
 
     // 게임 오버 처리
