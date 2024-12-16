@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public float gameTime = 60;  // 게임 시간 (초)
     private float initialGameTime;  // 초기화된 게임 시간 저장용
 
-    public IGameState currentState;
+    public IGameState currentState; // 상태 체크
 
     public void Awake()
     {
