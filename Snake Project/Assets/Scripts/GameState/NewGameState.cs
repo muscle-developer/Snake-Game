@@ -28,7 +28,7 @@ public class NewGameState : IGameState
     // 상태 종료 시 호출
     public void ExitState(GameManager gameManager)
     {
-        Debug.Log("Exiting New Game State");
+        Debug.Log("Exiting New Game State"); // 게임 종료 디버깅
     }
 }
 
