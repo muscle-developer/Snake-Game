@@ -205,3 +205,4 @@ Received Import Request.
 Number of updated assets reloaded before import = 0
 Start importing Assets/Prefabs/Snake Head.prefab using Guid(619c131ff68cb48adbc60867e42d936a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8c1595314d79f260bade78e2aedabc7') in 0.004922 seconds 
 Number of asset objects unloaded after import = 10
+[usbmuxd] Attached: 4469 00008120-000228203478C01E

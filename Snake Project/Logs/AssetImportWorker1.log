@@ -189,3 +189,4 @@ Received Import Request.
 Number of updated assets reloaded before import = 0
 Start importing Assets/Prefabs/Item/Apple.prefab using Guid(60f282b2fde15446c98ba08ca4dfecb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '20b96d13ee5907523f8609e46865e170') in 0.337746 seconds 
 Number of asset objects unloaded after import = 24
+[usbmuxd] Attached: 4469 00008120-000228203478C01E
