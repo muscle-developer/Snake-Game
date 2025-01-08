@@ -47,45 +47,54 @@ public class UIViewMain : MonoBehaviour
 
     void Start()
     {
+        // GameManager의 싱글톤 인스턴스를 통해 mainCanvas를 현재 객체로 설정
         GameManager.Instance.mainCanvs = this;
 
+        // 새로운 게임, 다음 게임 또는 현재 게임 여부를 확인
         if (GameManager.Instance.isNewGame || GameManager.Instance.isNextGame || GameManager.Instance.isCurrentGame)
         {
-            GameManager.Instance.isLive = true;
+            GameManager.Instance.isLive = true; // 게임 상태를 활성화하고 기본 게임 시간을 설정
             GameManager.Instance.gameTime = 60; // 기본 게임 시간 설정
-            InitScoreUI();
+            InitScoreUI(); // 점수 UI 초기화
         }
 
+        // 페이드 이미지 활성화 후 페이드 아웃 코루틴 실행
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(FadeOut());
 
-        // 처음 게임 시작시에는 각 팝업들을 꺼준다.
-        if(GameManager.Instance.isLive)
+        // 게임이 활성화된 상태에서 모든 팝업을 비활성화
+        if (GameManager.Instance.isLive)
         {
-            gameoverPopup.gameObject.SetActive(false);
-            successPopup.gameObject.SetActive(false);
+            gameoverPopup.gameObject.SetActive(false); // 게임 오버 팝업 비활성화
+            successPopup.gameObject.SetActive(false); // 성공 팝업 비활성화
         }
 
-        if(GameManager.Instance.isNextGame)
+        // 다음 게임일 경우
+        if (GameManager.Instance.isNextGame)
         {
-            // 이전 최고 점수 로드
+            // 이전 최고 점수를 로드하여 UI에 표시
             previousScore = PlayerPrefs.GetInt("HighScore", 0);
             scoreTextList[0].text = "내 점수: " + previousScore;
 
-            // 목표 점수 증가 (다음 게임을 위해 설정)
+            // 다음 게임을 위해 목표 점수를 증가
             targetScore += 10;
-            // 초기 목표 점수 UI 설정
+            // 목표 점수 UI 업데이트
             targetScoreText.text = "목표 점수: " + targetScore;
         }
-        else if(GameManager.Instance.isCurrentGame)
+        // 현재 게임일 경우
+        else if (GameManager.Instance.isCurrentGame)
         {
+            // 이전 최고 점수를 로드하여 UI에 표시
             previousScore = PlayerPrefs.GetInt("HighScore", 0);
             scoreTextList[0].text = "내 점수: " + previousScore;
 
+            // 목표 점수 UI 업데이트
             targetScoreText.text = "목표 점수: " + targetScore;
         }
-        else if(GameManager.Instance.isNewGame)
+        // 새로운 게임일 경우
+        else if (GameManager.Instance.isNewGame)
         {
+            // 점수 UI 초기화
             InitScoreUI();
         }
     }
