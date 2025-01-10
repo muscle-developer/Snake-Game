@@ -23,6 +23,9 @@ public class UIViewMain : MonoBehaviour
     // 스코어 점수
     [SerializeField]
     private List<TMP_Text> scoreTextList = new List<TMP_Text>();
+    // 이전 최고 점수
+    [SerializeField]
+    private TMP_Text previousScoreText;
     // 적 스코어를 저장할 리스트
     private List<int> enemyScores = new List<int>();
 
@@ -74,7 +77,7 @@ public class UIViewMain : MonoBehaviour
         {
             // 이전 최고 점수를 로드하여 UI에 표시
             previousScore = PlayerPrefs.GetInt("HighScore", 0);
-            scoreTextList[0].text = "내 점수: " + previousScore;
+            previousScoreText.text = "이전 최고 점수: " + previousScore;
 
             // 다음 게임을 위해 목표 점수를 증가
             targetScore += 10;
@@ -86,7 +89,7 @@ public class UIViewMain : MonoBehaviour
         {
             // 이전 최고 점수를 로드하여 UI에 표시
             previousScore = PlayerPrefs.GetInt("HighScore", 0);
-            scoreTextList[0].text = "내 점수: " + previousScore;
+            previousScoreText.text = "이전 최고 점수: " + previousScore;
 
             // 목표 점수 UI 업데이트
             targetScoreText.text = "목표 점수: " + targetScore;
@@ -95,7 +98,8 @@ public class UIViewMain : MonoBehaviour
         else if (GameManager.Instance.isNewGame)
         {
             // 점수 UI 초기화
-            InitScoreUI();
+            previousScoreText.text = "이전 최고 점수: " + 0;
+            InitScoreUI();   
         }
     }
 
