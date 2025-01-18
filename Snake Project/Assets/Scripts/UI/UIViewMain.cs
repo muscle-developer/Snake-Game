@@ -41,6 +41,7 @@ public class UIViewMain : MonoBehaviour
     [SerializeField]
     private GameObject successPopup;
 
+    // 페이드 효과 추가
     [SerializeField] 
     private Image fadeImage;
     private float fadeDuration = 1f;
